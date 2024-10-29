@@ -31,7 +31,7 @@ class DanhMucController extends Controller
         $newModel->hinhanh = $request->hinhanh;
         $newModel->created_at = date('Y-m-d H:i:s');
         $newModel->save();
-        flash()->success('Thêm mới danh mục thành công.');
+        toastr()->closeButton()->success('Thêm mới danh mục thành công.');
         return redirect(route('backend.danhmuc.index'));
     }
 
@@ -53,14 +53,14 @@ class DanhMucController extends Controller
         $editModel->hinhanh = $request->hinhanh;
         $editModel->created_at = date('Y-m-d H:i:s');
         $editModel->save();
-        flash()->success('Cập nhật danh mục thành công.');
+        toastr()->closeButton()->success('Cập nhật danh mục thành công.');
         return redirect(route('backend.danhmuc.index'));
     }
 
     public function destroy($id)
     {
         DanhMuc::destroy($id);
-        flash()->success('Xóa danh mục thành công.');
+        toastr()->closeButton()->success('Xóa danh mục thành công.');
         return redirect(route('backend.danhmuc.index'));
     }
 }
