@@ -5,6 +5,32 @@ use App\Http\Controllers\Backend\DanhMucController;
 use App\Models\DanhMuc;
 use App\Models\NhaCungCap;
 
+// ! Frontend
+Route::get('/', function () {
+    return view('frontend.index');
+})->name('home');
+
+Route::get('/shop', function () {
+    return view('frontend.shop');
+})->name('shop');
+
+Route::get('/blog', function () {
+    return view('frontend.blog');
+})->name('blog');
+
+Route::get('/about', function () {
+    return view('frontend.about');
+})->name('about');
+
+Route::get('/cart', function () {
+    return view('frontend.cart');
+})->name('cart');
+
+Route::get('/contact', function () {
+    return view('frontend.contact');
+})->name('contact');
+
+//^ Backend
 Route::get('/backend/danhmuc', [DanhMucController::class, 'index'])
     ->name('backend.danhmuc.index');
 
