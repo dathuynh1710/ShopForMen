@@ -21,12 +21,12 @@ return new class extends Migration
             $table->text('hinhanh');
             $table->boolean('is_featured');
             $table->bigInteger('danhmuc_id')->unsigned();
-            $table->bigInteger('nhacungcap_id')->unsigned();
+            $table->bigInteger('thuonghieu_id')->unsigned();
             $table->timestamps();
 
             // References
             $table->foreign('danhmuc_id')->references('id')->on('danhmuc');
-            $table->foreign('nhacungcap_id')->references('id')->on('nhacungcap');
+            $table->foreign('thuonghieu_id')->references('id')->on('thuonghieu');
         });
     }
 

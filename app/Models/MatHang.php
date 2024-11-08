@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use App\Models\DanhMuc;
-use App\Models\NhaCungCap;
+use App\Models\ThuongHieu;
 use App\Models\HinhAnhSanPham;
 use App\Models\ChiTietDonHang;
 
@@ -22,7 +22,7 @@ class MatHang extends Model
         'hinhanh',
         'is_featured',
         'danhmuc_id',
-        'nhacungcap_id',
+        'thuonghieu_id',
         'created_at',
         'updated_at',
     ];
@@ -43,11 +43,11 @@ class MatHang extends Model
         );
     }
 
-    public function nhacungcap()
+    public function thuonghieu()
     {
         return $this->belongsTo(
-            NhaCungCap::class,
-            'nhacungcap_id',
+            ThuongHieu::class,
+            'thuonghieu_id',
             'id'
         );
     }

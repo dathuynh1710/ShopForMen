@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
     <!---- title -->
-    <title>Responsive Ecommerce Website | HTML CSS & JavaScript</title>
+    <title>ShopForMen</title>
 
     <!---- customer css file -->
     <link rel="stylesheet" href="{{ asset('css/style.css') }}" />

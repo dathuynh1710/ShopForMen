@@ -3,7 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Backend\DanhMucController;
 use App\Models\DanhMuc;
-use App\Models\NhaCungCap;
+use App\Models\ThuongHieu;
 
 // ! Frontend
 Route::get('/', function () {
