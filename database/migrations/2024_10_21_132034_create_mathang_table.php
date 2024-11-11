@@ -15,11 +15,11 @@ return new class extends Migration
             $table->bigIncrements('id');
             $table->text('tenmathang', 500);
             $table->mediumText('mota');
-            $table->decimal('giagoc')->default(0);
-            $table->decimal('giaban')->default(0);
+            $table->decimal('giagoc', 16, 0)->default(0);
+            $table->decimal('giaban', 16, 0)->default(0);
             $table->integer('soluongton')->default(0);
-            $table->text('hinhanh');
-            $table->boolean('is_featured');
+            $table->text('hinhanh')->nullable();
+            $table->boolean('noibat');
             $table->bigInteger('danhmuc_id')->unsigned();
             $table->bigInteger('thuonghieu_id')->unsigned();
             $table->timestamps();

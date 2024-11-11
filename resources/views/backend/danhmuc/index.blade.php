@@ -14,8 +14,8 @@
             <th>Tên danh mục</th>
             <th>Mô tả</th>
             <th>Hình ảnh</th>
-            <th>Ngày tạo</th>
-            <th>Ngày cập nhật</th>
+            {{-- <th>Ngày tạo</th> --}}
+            {{-- <th>Ngày cập nhật</th> --}}
             <th>Hành động</th>
         </tr>
         @foreach ($dsDanhMuc as $dm)
@@ -29,8 +29,8 @@
                     </div>
                 </td>
                 {{-- <td>{{ $dm->created_at->format('d/m/Y H:i:s') }}</td> --}}
-                <td>{{ $dm->created_at->diffForHumans() }}</td>
-                <td>{{ $dm->updated_at }}</td>
+                {{-- <td>{{ $dm->created_at->diffForHumans() }}</td> --}}
+                {{-- <td>{{ $dm->updated_at }}</td> --}}
                 <td>
                     <a href='#!' class='btn btn-info m-r-1em'>Read</a>
                     <a href="{{ route('backend.danhmuc.edit', ['id' => $dm->id]) }}" class="btn btn-primary m-r-1em">
