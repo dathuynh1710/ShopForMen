@@ -2,7 +2,10 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Backend\DanhMucController;
+use App\Http\Controllers\Backend\MatHangController;
+use App\Http\Controllers\Auth\LoginController;
 use App\Models\DanhMuc;
+use App\Models\MatHang;
 use App\Models\ThuongHieu;
 
 // ! Frontend
@@ -31,6 +34,10 @@ Route::get('/contact', function () {
 })->name('contact');
 
 //^ Backend
+Route::get('/login', [LoginController::class, 'index'])
+    ->name('auth.login.index');
+
+// Danh mục
 Route::get('/backend/danhmuc', [DanhMucController::class, 'index'])
     ->name('backend.danhmuc.index');
 
@@ -48,3 +55,19 @@ Route::put('/backend/danhmuc/{id}', [DanhMucController::class, 'update'])
 
 Route::delete('/backend/danhmuc/{id}', [DanhMucController::class, 'destroy'])
     ->name('backend.danhmuc.destroy');
+
+// Mặt hàng
+Route::get('/backend/mathang', [MatHangController::class, 'index'])
+    ->name('backend.mathang.index');
+
+Route::get('/backend/mathang/them', [MatHangController::class, 'create'])
+    ->name('backend.mathang.create');
+
+Route::post('/backend/mathang/store', [MatHangController::class, 'store'])
+    ->name('backend.mathang.store');
+
+Route::get('/backend/mathang/{id}', [MatHangController::class, 'edit'])
+    ->name('backend.mathang.edit');
+
+Route::delete('/backend/mathang/{id}', [MatHangController::class, 'destroy'])
+    ->name('backend.mathang.destroy');

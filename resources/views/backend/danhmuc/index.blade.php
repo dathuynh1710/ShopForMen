@@ -6,7 +6,6 @@
 
 @section('main-content')
     <h1>Danh sách danh mục</h1>
-    <p>Số lượng dữ liệu: {{ count($dsDanhMuc) }}</p>
     <a class="btn btn-primary" href="{{ route('backend.danhmuc.create') }}">Thêm mới</a>
     <table class="mt-3 table table-bordered">
         <tr>
@@ -14,8 +13,6 @@
             <th>Tên danh mục</th>
             <th>Mô tả</th>
             <th>Hình ảnh</th>
-            {{-- <th>Ngày tạo</th> --}}
-            {{-- <th>Ngày cập nhật</th> --}}
             <th>Hành động</th>
         </tr>
         @foreach ($dsDanhMuc as $dm)
@@ -28,9 +25,6 @@
                             alt="">
                     </div>
                 </td>
-                {{-- <td>{{ $dm->created_at->format('d/m/Y H:i:s') }}</td> --}}
-                {{-- <td>{{ $dm->created_at->diffForHumans() }}</td> --}}
-                {{-- <td>{{ $dm->updated_at }}</td> --}}
                 <td>
                     <a href='#!' class='btn btn-info m-r-1em'>Read</a>
                     <a href="{{ route('backend.danhmuc.edit', ['id' => $dm->id]) }}" class="btn btn-primary m-r-1em">

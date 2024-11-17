@@ -20,7 +20,7 @@ class MatHang extends Model
         'giaban',
         'soluongton',
         'hinhanh',
-        'is_featured',
+        'noibat',
         'danhmuc_id',
         'thuonghieu_id',
         'created_at',

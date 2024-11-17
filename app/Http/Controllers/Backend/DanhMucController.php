@@ -16,8 +16,8 @@ class DanhMucController extends Controller
 {
     public function index()
     {
-        $dsDanhMuc = DanhMuc::orderby('id', 'desc')->paginate(10);
-        return view('backend.danhmuc.index', compact('dsDanhMuc'))->with('dsDanhMuc', $dsDanhMuc);
+        $dsDanhMuc = DanhMuc::paginate(5);
+        return view('backend.danhmuc.index')->with('dsDanhMuc', $dsDanhMuc);
     }
 
     // action create: hiển thị form giao diện cho người dùng nhập liệu
@@ -26,9 +26,12 @@ class DanhMucController extends Controller
         return view('backend.danhmuc.create');
     }
 
-    // action store: lưu dữ liệu vào DB
+    // action create -> luu -> action store
     public function store(Request $request)
     {
+        $request->validate([
+            'hinhanh.*' => 'image|mimes:jpeg,png,jpg,webp'
+        ]);
         $validator = Validator::make(
             $request->all(),
             [
@@ -51,24 +54,24 @@ class DanhMucController extends Controller
                 ->withInput();
         }
 
-        $newModel = new DanhMuc();
-        $newModel->madanhmuc = $request->madanhmuc;
-        $newModel->tendanhmuc = $request->tendanhmuc;
-        $newModel->mota = $request->mota;
-        $newModel->hinhanh = $request->hinhanh;
-        $newModel->created_at = date('Y-m-d H:i:s');
-
+        $newDM = new DanhMuc();
+        $newDM->madanhmuc = $request->madanhmuc;
+        $newDM->tendanhmuc = $request->tendanhmuc;
+        $newDM->mota = $request->mota;
         //Kiểm tra người dùng có chọn tập tin hay k?
-        // if ($request->hasFile('hinhanh')) {
-        //     $file = $request->hinhanh;
-        //     $newModel->hinhanh = $file->getClientOriginalName();
-        //     $fileSaved = $file->storeAs('public/uploads', $newModel->hinhanh);
-        // }
-
-        $newModel->save();
-
+        if ($request->hasFile('hinhanh')) {
+            $file = $request->hinhanh;
+            // Sinh ra chuỗi ngày tháng năm giờ phút giây
+            $newFileName = date('Ymd_His') . '_' . $file->getClientOriginalName();
+            // Lưu vào Database
+            $newDM->hinhanh = $newFileName;
+            // Lưu vào Storage
+            $file->storeAs('uploads/danhmuc/img', $newFileName, 'public');
+        }
+        $newDM->save();
         return redirect(route('backend.danhmuc.index'));
     }
+
 
     public function edit($id)
     {
@@ -78,7 +81,7 @@ class DanhMucController extends Controller
             ->with('editModel', $editModel);
     }
 
-    //action Update
+    // action edit -> luu -> action update
     public function update($id, Request $request)
     {
         $editModel = DanhMuc::find($id);
