@@ -92,7 +92,7 @@
 
                 <div class="form-group">
                     <label for="hinhanh" class="form-label custom-file-input mt-3">Hình ảnh</label>
-                    <input class="form-control" name="hinhanh" type="file" id="hinhanh" multiple>
+                    <input class="form-control" name="hinhanh[]" type="file" id="hinhanh" multiple>
                 </div>
 
                 <div>

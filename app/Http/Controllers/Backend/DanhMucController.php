@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Backend;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\DanhMuc;
+use App\Models\HinhAnhSanPham;
 use Dotenv\Validator as DotenvValidator;
 use Illuminate\Auth\Events\Validated;
 use Illuminate\Database\Eloquent\Model;
@@ -58,6 +59,7 @@ class DanhMucController extends Controller
         $newDM->madanhmuc = $request->madanhmuc;
         $newDM->tendanhmuc = $request->tendanhmuc;
         $newDM->mota = $request->mota;
+        $newDM->created_at = date('Y-m-d H:i:s');
         //Kiểm tra người dùng có chọn tập tin hay k?
         if ($request->hasFile('hinhanh')) {
             $file = $request->hinhanh;
@@ -72,7 +74,6 @@ class DanhMucController extends Controller
         return redirect(route('backend.danhmuc.index'));
     }
 
-
     public function edit($id)
     {
         //Tìm dữ liệu
@@ -84,26 +85,26 @@ class DanhMucController extends Controller
     // action edit -> luu -> action update
     public function update($id, Request $request)
     {
-        $editModel = DanhMuc::find($id);
-        $editModel->madanhmuc = $request->madanhmuc;
-        $editModel->tendanhmuc = $request->tendanhmuc;
-        $editModel->mota = $request->mota;
-        $editModel->hinhanh = $request->hinhanh;
-        $editModel->created_at = date('Y-m-d H:i:s');
-        // Kiểm tra xem người dùng có upload hình ảnh Đại diện hay không?
-        if ($request->hasFile('sp_hinh')) {
-            // Xóa hình cũ để tránh rác
-            Storage::delete('public/photos/' . $editModel->hinhanh);
+        $request->validate([
+            'hinhanh' => 'nullable|image|mimes:jpeg,png,jpg,webp'
+        ]);
 
-            // Upload hình mới
-            // Lưu tên hình vào column sp_hinh
-            $file = $request->hinhanh;
-            $editModel->hinhanh = $file->getClientOriginalName();
-
-            // Chép file vào thư mục "photos"
-            $fileSaved = $file->storeAs('public/photos', $editModel->hinhanh);
+        $editDM = DanhMuc::find($id);
+        $editDM->madanhmuc = $request->madanhmuc;
+        $editDM->tendanhmuc = $request->tendanhmuc;
+        $editDM->mota = $request->mota;
+        $editDM->created_at = date('Y-m-d H:i:s');
+        if ($request->hasFile('hinhanh')) {
+            // Delete old image if exists
+            if ($editDM->hinhanh) {
+                Storage::disk('public')->delete('uploads/danhmuc/img/' . $editDM->hinhanh);
+            }
+            $file = $request->file('hinhanh');
+            $newFileName = date('Ymd_His') . '_' . $file->getClientOriginalName();
+            $editDM->hinhanh = $newFileName;
+            $file->storeAs('uploads/danhmuc/img', $newFileName, 'public');
         }
-        $editModel->save();
+        $editDM->save();
         return redirect(route('backend.danhmuc.index'));
     }
 

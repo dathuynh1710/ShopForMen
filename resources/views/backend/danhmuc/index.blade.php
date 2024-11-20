@@ -26,8 +26,7 @@
                     </div>
                 </td>
                 <td>
-                    <a href='#!' class='btn btn-info m-r-1em'>Read</a>
-                    <a href="{{ route('backend.danhmuc.edit', ['id' => $dm->id]) }}" class="btn btn-primary m-r-1em">
+                    <a href="{{ route('backend.danhmuc.edit', ['id' => $dm->id]) }}" class="btn btn-primary m-r-1em ">
                         Edit</a>
                     <button type="button" class=" btn btn-danger btn-delete" data-id="{{ $dm->id }}"
                         data-delete-url="{{ route('backend.danhmuc.destroy', ['id' => $dm->id]) }}"> Delete</button>

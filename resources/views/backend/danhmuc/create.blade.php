@@ -63,7 +63,7 @@
                 </div>
                 <div class="mt-3">
                     <a href="{{ route('backend.danhmuc.index') }}" class="btn btn-outline-secondary ">Quay về danh sách</a>
-                    <button type="submit" class="btn btn-primary">Lưu</button>
+                    <button type="submit" class="btn btn-primary btn-save">Lưu</button>
                 </div>
             </form>
         </div>
@@ -118,6 +118,19 @@
                     $(element).addClass("is-valid").removeClass("is-invalid");
                 }
 
+            });
+
+            // Save button click handler
+            $('.btn-save').on('click', function(e) {
+                e.preventDefault();
+                const madanhmuc = $('#madanhmuc').val();
+                const tendanhmuc = $('#tendanhmuc').val();
+                $('form[name="frmCreate"]').submit();
+                Swal.fire(
+                    'Đã lưu!',
+                    'Dữ liệu đã được thêm mới thành công.',
+                    'success'
+                );
             });
         })
     </script>

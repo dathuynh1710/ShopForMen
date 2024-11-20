@@ -29,7 +29,8 @@
             <h4 class="card-title mb-0 flex-grow-1">Form nhập liệu</h4>
         </div>
         <div class="card-body">
-            <form name="frmCreate" method="post" action="{{ route('backend.danhmuc.update', ['id' => $editModel->id]) }}">
+            <form name="frmCreate" method="post" enctype="multipart/form-data"
+                action="{{ route('backend.danhmuc.update', ['id' => $editModel->id]) }}">
                 @csrf
                 @method('PUT')
                 <div class="form-group">
@@ -58,7 +59,7 @@
                 <div class="mt-3">
                     <a href="{{ route('backend.danhmuc.index') }}" class="btn btn-outline-secondary ">Quay về danh sách
                     </a>
-                    <button type="submit" class="btn btn-primary">Lưu</button>
+                    <button type="submit" class="btn btn-primary btn-save">Lưu</button>
                 </div>
             </form>
         </div>
@@ -66,31 +67,29 @@
     <!-- Form nhập liệu - END -->
 @endsection
 
-{{-- <script>
-    $(document).ready(function() {
-        $("#hinhanh").fileinput({
-            theme: 'fas',
-            showUpload: false,
-            showCaption: false,
-            browseClass: "btn btn-primary btn-lg",
-            fileType: "any",
-            append: false,
-            showRemove: false,
-            autoReplace: true,
-            previewFileIcon: "<i class='glyphicon glyphicon-king'></i>",
-            overwriteInitial: false,
-            initialPreviewShowDelete: false,
-            initialPreviewAsData: true,
-            initialPreview: [
-                "{{ asset('storage/uploads/' . $editModel->hinhanh) }}"
-            ],
-            initialPreviewConfig: [{
-                caption: "{{ $editModel->hinhanh }}",
-                size: {{ Storage::exists('public/uploads/' . $editModel->hinhanh) ? Storage::size('public/uploads/' . $editModel->hinhanh) : 0 }},
-                width: "120px",
-                url: "{$url}",
-                key: 1
-            }, ]
+@section('custom-js')
+    <script>
+        $(function() {
+            $('.btn-save').on('click', function(e) {
+                e.preventDefault();
+                const madanhmuc = $('#madanhmuc').val();
+                const tendanhmuc = $('#tendanhmuc').val();
+                if (!madanhmuc || !tendanhmuc) {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Lỗi',
+                        text: 'Vui lòng điền đầy đủ thông tin!',
+                    });
+                    return false;
+                }
+                $('form[name="frmCreate"]').submit();
+                Swal.fire(
+                    'Đã lưu!',
+                    'Dữ liệu đã được lưu thành công.',
+                    'success',
+
+                );
+            });
         });
-    });
-</script> --}}
+    </script>
+@endsection

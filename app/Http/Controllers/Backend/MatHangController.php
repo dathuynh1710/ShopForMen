@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\MatHang;
 use App\Models\DanhMuc;
+use App\Models\HinhAnhSanPham;
 use App\Models\ThuongHieu;
 use Dotenv\Validator as DotenvValidator;
 use Illuminate\Auth\Events\Validated;
@@ -33,6 +34,10 @@ class MatHangController extends Controller
 
     public function store(Request $request)
     {
+        $request->validate([
+            'hinhanh.*' => 'image|mimes:jpeg,png,jpg,webp'
+        ]);
+
         $newMH = new MatHang();
         $newMH->tenmathang = $request->tenmathang;
         $newMH->mota = $request->mota;
@@ -52,30 +57,52 @@ class MatHangController extends Controller
         //     // Lưu vào Storage
         //     $file->storeAs('uploads/mathang', $newFileName, 'public');
         // }
-        if ($request->hasFile('hinhanh')) {
-            $files = $request->file('hinhanh'); // Lấy danh sách các file (mảng)
 
-            if (is_array($files)) { // Kiểm tra nếu là mảng
-                foreach ($files as $file) {
-                    // Sinh ra tên file mới với thời gian
-                    $newFileName = date('Ymd_His') . '_' . $file->getClientOriginalName();
 
-                    // Lưu vào Storage
-                    $file->storeAs('uploads/mathang/img', $newFileName, 'public');
 
-                    // Ghi vào cơ sở dữ liệu (ví dụ nếu chỉ lưu tên của một file)
-                    $newMH->hinhanh = $newFileName;
-                }
-            } else {
-                // Trường hợp chỉ có một file
-                $newFileName = date('Ymd_His') . '_' . $files->getClientOriginalName();
-                $files->storeAs('uploads/mathang/img', $newFileName, 'public');
-                $newMH->hinhanh = $newFileName;
-            }
-        }
+        // if ($request->hasFile('hinhanh')) {
+        //     $files = $request->file('hinhanh'); // Lấy danh sách các file (mảng)
+
+        //     if (is_array($files)) { // Kiểm tra nếu là mảng
+        //         foreach ($files as $file) {
+        //             // Sinh ra tên file mới với thời gian
+        //             $newFileName = date('Ymd_His') . '_' . $file->getClientOriginalName();
+
+        //             // Lưu vào Storage
+        //             $file->storeAs('uploads/mathang/img', $newFileName, 'public');
+
+        //             // Ghi vào cơ sở dữ liệu (ví dụ nếu chỉ lưu tên của một file)
+        //             $newMH->hinhanh = $newFileName;
+        //         }
+        //     } else {
+        //         // Trường hợp chỉ có một file
+        //         $newFileName = date('Ymd_His') . '_' . $files->getClientOriginalName();
+        //         $files->storeAs('uploads/mathang/img', $newFileName, 'public');
+        //         $newMH->hinhanh = $newFileName;
+        //     }
+        // }
 
         $newMH->created_at = date('Y-m-d H:i:s');
         $newMH->save();
+        $anhData = [];
+        if ($files = $request->file('hinhanh')) {
+            foreach ($files as $key => $file) {
+                $duoifile = $file->getClientOriginalExtension();
+                $tenfile = $key . '-' . time() . '.' . $duoifile;
+                $path = "uploads/mathang/img";
+                $file->move($path, $tenfile);
+                $tmp = [
+                    'mathang_id' => $newMH->id,
+                    'tenanh' => $path . $tenfile
+                ];
+                $anhData = $tmp;
+            }
+            // them cac anh vao csdl
+            HinhAnhSanPham::insert($anhData);
+        }
+
+
+
         return redirect(route('backend.mathang.index'));
     }
 
