@@ -4,9 +4,11 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Backend\DanhMucController;
 use App\Http\Controllers\Backend\MatHangController;
 use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\Backend\NguoiDungController;
 use App\Models\DanhMuc;
 use App\Models\MatHang;
 use App\Models\ThuongHieu;
+use App\Models\NguoiDung;
 
 // ! Frontend
 Route::get('/', function () {
@@ -29,6 +31,8 @@ Route::get('/contact', function () {
 })->name('contact');
 
 //^ Backend
+Route::get('/backend', [LoginController::class, 'dashboard'])
+    ->name('auth.login.dashboard');
 // * Auth
 Route::get('/backend/login', [LoginController::class, 'index'])
     ->name('auth.login.index');
@@ -52,11 +56,22 @@ Route::delete('/backend/danhmuc/{id}', [DanhMucController::class, 'destroy'])
 // * Mat hang
 Route::get('/backend/mathang', [MatHangController::class, 'index'])
     ->name('backend.mathang.index');
+Route::get('/backend/mathang/search', [MatHangController::class, 'search'])
+    ->name('backend.mathang.search');
 Route::get('/backend/mathang/them', [MatHangController::class, 'create'])
     ->name('backend.mathang.create');
 Route::post('/backend/mathang/store', [MatHangController::class, 'store'])
     ->name('backend.mathang.store');
 Route::get('/backend/mathang/{id}', [MatHangController::class, 'edit'])
     ->name('backend.mathang.edit');
+Route::put('/backend/mathang/{id}', [MatHangController::class, 'update'])
+    ->name('backend.mathang.update');
 Route::delete('/backend/mathang/{id}', [MatHangController::class, 'destroy'])
     ->name('backend.mathang.destroy');
+// Route::get('/backend/mathang/{id}', [MatHangController::class, 'detail'])
+//     ->name('backend.mathang.detail');
+// Route::get('/backend/mathang/{id}/detail', [MatHangController::class, 'detail'])->name('backend.mathang.detail');
+
+// * Nguoi dung
+Route::get('/backend/nguoidung', [NguoiDungController::class, 'index'])
+    ->name('backend.nguoidung.index');

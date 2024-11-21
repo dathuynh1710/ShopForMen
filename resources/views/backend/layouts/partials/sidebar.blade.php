@@ -97,8 +97,8 @@
                 <li class="nav-item">
                     <a class="nav-link menu-link" href="{{ route('backend.danhmuc.index') }}"
                         data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarAuth">
-                        <i class="ri-account-circle-line"></i> <span data-key="t-authentication">Quản lý danh
-                            mục</span>
+                        <i class="ri-account-circle-line"></i> <span data-key="t-authentication">Quản lý người
+                            dùng</span>
                     </a>
                 </li>
 
@@ -113,7 +113,7 @@
                 <li class="nav-item">
                     <a class="nav-link menu-link" href="#sidebarLanding" data-bs-toggle="collapse" role="button"
                         aria-expanded="false" aria-controls="sidebarLanding">
-                        <i class="ri-rocket-line"></i> <span data-key="t-landing">Quản lý người dùng</span>
+                        <i class="ri-rocket-line"></i> <span data-key="t-landing">Quản lý danh mục</span>
                     </a>
 
                 </li>

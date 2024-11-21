@@ -17,7 +17,7 @@ class DanhMucController extends Controller
 {
     public function index()
     {
-        $dsDanhMuc = DanhMuc::paginate(5);
+        $dsDanhMuc = DanhMuc::all();
         return view('backend.danhmuc.index')->with('dsDanhMuc', $dsDanhMuc);
     }
 

@@ -19,8 +19,7 @@ class HinhAnhSanPham extends Model
     protected $guarded = ['id'];
     protected $primaryKey = 'id';
     protected $dates = [];
-    protected $dateFormat = 'Y-m-d H:i:s';
-    protected $timestamps = false;
+
 
     public function mathang()
     {

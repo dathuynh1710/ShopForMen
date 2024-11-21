@@ -1,7 +1,7 @@
 @extends('backend/layouts/master')
 
 @section('title')
-    Thêm mới mặt hàng
+    Cập nhật mặt hàng
 @endsection
 
 @section('main-content')
@@ -9,19 +9,20 @@
     <div class="row">
         <div class="col-12">
             <div class="page-title-box d-sm-flex align-items-center justify-content-between bg-galaxy-transparent">
-                <h4 class="mb-sm-0">Thêm mới mặt hàng</h4>
+                <h4 class="mb-sm-0">Cập nhật mặt hàng</h4>
                 <div class="page-title-right">
                     <ol class="breadcrumb m-0">
                         <li class="breadcrumb-item">
                             <a href="{{ route('backend.mathang.index') }}">Danh sách</a>
                         </li>
-                        <li class="breadcrumb-item active">Thêm mới</li>
+                        <li class="breadcrumb-item active">Cập nhật</li>
                     </ol>
                 </div>
             </div>
         </div>
     </div>
     <!-- end page title -->
+
     <form name="frmCreate" id="frmCreate" method="post" enctype="multipart/form-data"
         action="{{ route('backend.mathang.store') }}" class="needs-validation" novalidate>
         @csrf
@@ -31,13 +32,12 @@
                     <div class="card-body">
                         <div class="mb-3">
                             <label class="form-label" for="product-title-input">Tên mặt hàng</label>
-                            <input type="text" name="tenmathang" id="tenmathang" class="form-control" value=""
-                                placeholder="Nhập tên mặt hàng">
-                            <div class="invalid-feedback">Please Enter a product title.</div>
+                            <input type="text" name="tenmathang" id="tenmathang" class="form-control"
+                                value="{{ $editModel->tenmathang }}" placeholder="Nhập tên mặt hàng">
                         </div>
                         <div>
                             <label>Mô tả mặt hàng</label>
-                            <textarea name="mota" class="form-control " id="mota" placeholder="Nhập mô tả"></textarea>
+                            <textarea name="mota" class="form-control " id="mota" placeholder="Nhập mô tả">{{ $editModel->mota }}</textarea>
                         </div>
                     </div>
                 </div>
@@ -54,7 +54,7 @@
                                         <div class="mb-3">
                                             <label class="form-label" for="stocks-input">Số lượng tồn</label>
                                             <input type="text" name="soluongton" id="soluongton" class="form-control"
-                                                placeholder="Nhập số lượng tồn">
+                                                value="{{ $editModel->soluongton }}" placeholder="Nhập số lượng tồn">
                                         </div>
                                     </div>
                                     <div class="col-lg-4 col-sm-6">
@@ -63,8 +63,8 @@
                                             <div class="input-group has-validation mb-3">
                                                 <span class="input-group-text" id="product-price-addon">VNĐ</span>
                                                 <input type="text" class="form-control" name="giagoc" id="giagoc"
-                                                    placeholder="Nhập giá gốc" aria-label="Price"
-                                                    aria-describedby="product-price-addon">
+                                                    value="{{ $editModel->giagoc }}" placeholder="Nhập giá gốc"
+                                                    aria-label="Price" aria-describedby="product-price-addon">
                                             </div>
 
                                         </div>
@@ -75,8 +75,8 @@
                                             <div class="input-group mb-3">
                                                 <span class="input-group-text" id="product-discount-addon">VNĐ</span>
                                                 <input type="text" class="form-control" name="giaban" id="giaban"
-                                                    placeholder="Nhập giá bán" aria-label="discount"
-                                                    aria-describedby="product-discount-addon">
+                                                    value="{{ $editModel->giaban }}" placeholder="Nhập giá bán"
+                                                    aria-label="discount" aria-describedby="product-discount-addon">
                                             </div>
                                         </div>
                                     </div>
@@ -96,7 +96,11 @@
                             <h5 class="fs-14 mb-1">Hình ảnh mặt hàng</h5>
                             <p class="text-muted">Thêm hình ảnh chính của mặt hàng.
                             </p>
-                            <div class="text-center">
+                            <div>
+                                <img style="width: 200px;" src="/storage/uploads/mathang/img/{{ $editModel->hinhanh }}"
+                                    alt="">
+                            </div>
+                            {{-- <div class="text-center">
                                 <div class="position-relative d-inline-block">
                                     <div class="position-absolute top-100 start-100 translate-middle">
                                         <label for="product-image-input" class="mb-0" data-bs-toggle="tooltip"
@@ -118,7 +122,9 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            </div> --}}
+                            <input class="form-control" name="hinhanh" type="file" id="hinhanh">
+
                         </div>
                         <div>
                             <h5 class="fs-14 mb-1">Hình ảnh mô tả của mặt hàng</h5>
@@ -129,14 +135,14 @@
                                 <div class="fallback">
                                     <input name="hinhanhs[]" type="file" multiple
                                         style="
-                                    cursor: pointer;
-                                    opacity: 0;   
-                                    position: absolute;
-                                    width: 100%;
-                                    height: 200px;">
+                                cursor: pointer;
+                                opacity: 0;   
+                                position: absolute;
+                                width: 100%;
+                                height: 200px;">
                                 </div>
                                 <div class="dz-message
-                                        needsclick"
+                                    needsclick"
                                     style="text-align: center;">
                                     <div class="mb-3">
                                         <i class="display-4 text-muted ri-upload-cloud-2-fill"></i>
@@ -187,9 +193,9 @@
                     <div class="card-body">
                         <p class="text-muted mb-2"> Chọn danh mục sản phẩm</p>
                         <select class="form-select" name="danhmuc_id" id="danhmuc_id">
-                            @foreach ($listDanhMuc as $item)
+                            {{-- @foreach ($listDanhMuc as $item)
                                 <option value="{{ $item->id }}">{{ $item->tendanhmuc }}</option>
-                            @endforeach
+                            @endforeach --}}
                         </select>
                     </div>
                     <!-- end card body -->
@@ -202,9 +208,9 @@
                     <div class="card-body">
                         <p class="text-muted mb-2"> Chọn thương hiệu sản phẩm</p>
                         <select class="form-select" name="thuonghieu_id" id="thuonghieu_id">
-                            @foreach ($listThuongHieu as $item)
+                            {{-- @foreach ($listThuongHieu as $item)
                                 <option value="{{ $item->id }}">{{ $item->tenth }}</option>
-                            @endforeach
+                            @endforeach --}}
                         </select>
                     </div>
                 </div>
@@ -216,7 +222,4 @@
         <!-- end row -->
 
     </form>
-@endsection
-
-@section('custom-js')
 @endsection

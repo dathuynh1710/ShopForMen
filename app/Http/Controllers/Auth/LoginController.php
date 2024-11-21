@@ -13,11 +13,16 @@ class LoginController extends Controller
     use AuthenticatesUsers;
 
     //Sau khi đăng nhập thành công, sẽ tự động trỏ về trang /admin/
-    protected $redirectTo = 'backend/danhmuc';
+    protected $redirectTo = 'backend';
 
     public function index()
     {
         return view('auth.login.index');
+    }
+
+    public function dashboard()
+    {
+        return view('backend.dashboard.index');
     }
 
     public function username()
