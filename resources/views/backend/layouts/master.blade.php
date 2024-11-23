@@ -1191,7 +1191,6 @@
     <script src="{{ asset('assets/libs/jquery-validation/dist/jquery.validate.min.js') }}"></script>
     <script src="{{ asset('assets/libs/jquery-validation/dist/localization/messages_vi.min.js') }}"></script>
 
-
     <!-- App js -->
     <script src="{{ asset('assets/js/app.js') }}"></script>
     @yield('custom-js')

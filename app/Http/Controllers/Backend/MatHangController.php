@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Storage;
 use App\Models\MatHang;
 use App\Models\DanhMuc;
 use App\Models\HinhAnhSanPham;
@@ -13,7 +15,6 @@ use Illuminate\Auth\Events\Validated;
 use Illuminate\Database\Eloquent\Model;
 use Validator;
 use Session;
-use Storage;
 
 class MatHangController extends Controller
 {
@@ -49,6 +50,9 @@ class MatHangController extends Controller
 
     public function store(Request $request)
     {
+        $request->validate([
+            'hinhanhs.*' => 'image|mimes:png,jpg,jpeg,webp'
+        ]);
         $newMH = new MatHang();
         $newMH->tenmathang = $request->tenmathang;
         $newMH->mota = $request->mota;
@@ -67,67 +71,147 @@ class MatHangController extends Controller
             // Lưu vào Storage
             $file->storeAs('uploads/mathang/img', $newFileName, 'public');
         }
-        try {
-            $matHang = MatHang::create($request->all());
-            if ($matHang && $request->hasFile('hinhanhs')) {
-                foreach ($request->hinhanhs as $key => $value) {
-                    $fileNames = date('Ymd_His') . '_' . $value->getClientOriginalName();
-                    $value->storeAs('uploads/mathang/img', $fileNames, 'public');
-                    HinhAnhSanPham::create([
-                        'mathang_id' => $matHang->id,
-                        'hinhanh' => $fileNames
-                    ]);
-                }
-            }
-        } catch (\Throwable $th) {
-            // throw $th
-        }
         $newMH->save();
+        if ($request->hasFile('hinhanhs')) {
+            foreach ($request->file('hinhanhs') as $key => $file) {
+                $fileNames = date('Ymd_His') . '_' . $file->getClientOriginalName();
+                $file->storeAs('uploads/mathang/img', $fileNames, 'public');
+                HinhAnhSanPham::create([
+                    'mathang_id' => $newMH->id,
+                    'hinhanh' => $fileNames
+                ]);
+            }
+        }
         return redirect(route('backend.mathang.index'));
     }
 
     public function edit($id)
     {
-        $editModel = MatHang::find($id);
+        $matHang = MatHang::find($id);
+        $danhMuc = DanhMuc::get();
+        $thuongHieu = ThuongHieu::get();
+        $anhs = HinhAnhSanPham::where('mathang_id', '=', $id)->get();
         return view('backend.mathang.edit')
-            ->with('editModel', $editModel);
+            ->with('matHang', $matHang)
+            ->with('danhMuc', $danhMuc)
+            ->with('thuongHieu', $thuongHieu)
+            ->with('anhs', $anhs);
     }
 
+    // public function update($id, Request $request)
+    // {
+    //     $editMH = MatHang::find($id);
+    //     $editMH->tenmathang = $request->tenmathang;
+    //     $editMH->mota = $request->mota;
+    //     $editMH->giagoc = $request->giagoc;
+    //     $editMH->giaban = $request->giaban;
+    //     $editMH->soluongton = $request->soluongton;
+    //     $editMH->noibat = $request->noibat;
+    //     $editMH->danhmuc_id = $request->danhmuc_id;
+    //     $editMH->thuonghieu_id = $request->thuonghieu_id;
+    //     $editMH->created_at = date('Y-m-d H:i:s');
+
+
+    //     if ($request->hasFile('hinhanh')) {
+    //         if ($editMH->hinhanh) {
+    //             Storage::disk('public')->delete('uploads/mathang/img/' . $editMH->hinhanh);
+    //         }
+    //         $file = $request->file('hinhanh');
+    //         $newFileName = date('Ymd_His') . '_' . $file->getClientOriginalName();
+    //         $editMH->hinhanh = $newFileName;
+    //         $file->storeAs('uploads/danhmuc/img', $newFileName, 'public');
+    //     }
+    //     $editMH->save();
+
+    //     if ($request->hasFile('hinhanhs')) {
+    //         $anhs = HinhAnhSanPham::where('mathang_id', '=', $id)->get();
+    //         foreach ($anhs as $anh) {
+    //             $filePath = 'uploads/mathang/img/' . $anh->hinhanh;
+    //             // xóa file vật lý
+    //             if (Storage::disk('public')->exists($filePath)) {
+    //                 Storage::disk('public')->delete($filePath);
+    //             }
+    //             // xóa trong DB
+    //             $anh->delete();
+    //         }
+    //         foreach ($request->file('hinhanhs') as $key => $file) {
+    //             $fileNames = date('Ymd_His') . '_' . $file->getClientOriginalName();
+    //             $file->storeAs('uploads/mathang/img', $fileNames, 'public');
+    //             HinhAnhSanPham::create([
+    //                 'mathang_id' => $id,
+    //                 'hinhanh' => $fileNames
+    //             ]);
+    //         }
+    //     }
+    //     return redirect(route('backend.mathang.index'));
+    // }
     public function update($id, Request $request)
     {
-        $listDanhMuc = DanhMuc::all();
-        $listThuongHieu = ThuongHieu::all();
-        return view('backend.mathang.create')
-            ->with('listDanhMuc', $listDanhMuc)
-            ->with('listThuongHieu', $listThuongHieu);
-
         $editMH = MatHang::find($id);
-        $editMH->madanhmuc = $request->madanhmuc;
-        $editMH->tendanhmuc = $request->tendanhmuc;
+        $editMH->tenmathang = $request->tenmathang;
         $editMH->mota = $request->mota;
-        $editMH->save();
+        $editMH->giagoc = $request->giagoc;
+        $editMH->giaban = $request->giaban;
+        $editMH->soluongton = $request->soluongton;
+        $editMH->noibat = $request->noibat;
+        $editMH->danhmuc_id = $request->danhmuc_id;
+        $editMH->thuonghieu_id = $request->thuonghieu_id;
+        $editMH->created_at = date('Y-m-d H:i:s');
+
+        // Cập nhật ảnh chính
+        if ($request->hasFile('hinhanh')) {
+            // Xóa ảnh cũ nếu tồn tại
+            if ($editMH->hinhanh) {
+                Storage::disk('public')->delete('uploads/mathang/img/' . $editMH->hinhanh);
+            }
+
+            // Lưu ảnh mới
+            $file = $request->file('hinhanh');
+            $newFileName = date('Ymd_His') . '_' . $file->getClientOriginalName();
+            $editMH->hinhanh = $newFileName;
+
+            // Sửa lại thư mục lưu ảnh chính
+            $file->storeAs('uploads/mathang/img', $newFileName, 'public');
+        }
+
+        $editMH->save(); // Lưu thông tin mặt hàng
+
+        // Cập nhật ảnh phụ
+        if ($request->hasFile('hinhanhs')) {
+            $anhs = HinhAnhSanPham::where('mathang_id', '=', $id)->get();
+            foreach ($anhs as $anh) {
+                $filePath = 'uploads/mathang/img/' . $anh->hinhanh;
+                // Xóa file vật lý
+                if (Storage::disk('public')->exists($filePath)) {
+                    Storage::disk('public')->delete($filePath);
+                }
+                // Xóa trong DB
+                $anh->delete();
+            }
+
+            foreach ($request->file('hinhanhs') as $key => $file) {
+                $fileNames = date('Ymd_His') . '_' . $file->getClientOriginalName();
+                $file->storeAs('uploads/mathang/img', $fileNames, 'public');
+                HinhAnhSanPham::create([
+                    'mathang_id' => $id,
+                    'hinhanh' => $fileNames
+                ]);
+            }
+        }
+
         return redirect(route('backend.mathang.index'));
     }
 
-    public function detail(Request $request, $id)
+    public function show($id)
     {
-        try {
-            // Tìm mặt hàng theo ID
-            $mathang = MatHang::find($id);
+        $product = MatHang::with(['danhmuc', 'thuonghieu', 'hinhanh'])
+            ->findOrFail($id);
+        $product->mota = strip_tags($product->mota);
+        $images = $product->hinhanh()->get();
+        // $product->noibat = $product->noibat == 1 ? 'Nổi bật' : 'Không nổi bật';
 
-            // Kiểm tra nếu mặt hàng không tồn tại
-            if (!$mathang) {
-                return redirect()->route('backend.mathang.index')
-                    ->with('error', 'Mặt hàng không tồn tại.');
-            }
-
-            // Nếu tìm thấy, trả về view hiển thị chi tiết
-            return view('backend.mathang.detail', compact('mathang'));
-        } catch (\Exception $e) {
-            // Xử lý lỗi bất ngờ
-            return redirect()->route('backend.mathang.index')
-                ->with('error', 'Đã xảy ra lỗi khi lấy thông tin mặt hàng.');
-        }
+        // Trả về view và truyền dữ liệu sản phẩm
+        return view('backend.mathang.detail', compact('product', 'images'));
     }
 
 

@@ -9,6 +9,8 @@ use App\Models\HinhAnhSanPham;
 use Dotenv\Validator as DotenvValidator;
 use Illuminate\Auth\Events\Validated;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\File;
+
 use Validator;
 use Session;
 use Storage;
@@ -110,7 +112,11 @@ class DanhMucController extends Controller
 
     public function destroy($id)
     {
+        $danhmuc = DanhMuc::findOrFail($id);
+        File::delete(public_path('uploads/danhmuc/img' . $danhmuc->hinhanh));
+        $danhmuc->delete();
         DanhMuc::destroy($id);
+
         return redirect(route('backend.danhmuc.index'));
     }
 }

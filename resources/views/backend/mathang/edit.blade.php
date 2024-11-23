@@ -24,8 +24,9 @@
     <!-- end page title -->
 
     <form name="frmCreate" id="frmCreate" method="post" enctype="multipart/form-data"
-        action="{{ route('backend.mathang.store') }}" class="needs-validation" novalidate>
+        action="{{ route('backend.mathang.update', ['id' => $matHang->id]) }}" class="needs-validation" novalidate>
         @csrf
+        @method('PUT')
         <div class="row">
             <div class="col-lg-8">
                 <div class="card">
@@ -33,11 +34,11 @@
                         <div class="mb-3">
                             <label class="form-label" for="product-title-input">Tên mặt hàng</label>
                             <input type="text" name="tenmathang" id="tenmathang" class="form-control"
-                                value="{{ $editModel->tenmathang }}" placeholder="Nhập tên mặt hàng">
+                                value="{{ $matHang->tenmathang }}" placeholder="Nhập tên mặt hàng">
                         </div>
                         <div>
                             <label>Mô tả mặt hàng</label>
-                            <textarea name="mota" class="form-control " id="mota" placeholder="Nhập mô tả">{{ $editModel->mota }}</textarea>
+                            <textarea name="mota" class="form-control ckeditor-classic" id="mota" placeholder="Nhập mô tả">{{ $matHang->mota }}</textarea>
                         </div>
                     </div>
                 </div>
@@ -54,7 +55,7 @@
                                         <div class="mb-3">
                                             <label class="form-label" for="stocks-input">Số lượng tồn</label>
                                             <input type="text" name="soluongton" id="soluongton" class="form-control"
-                                                value="{{ $editModel->soluongton }}" placeholder="Nhập số lượng tồn">
+                                                value="{{ $matHang->soluongton }}" placeholder="Nhập số lượng tồn">
                                         </div>
                                     </div>
                                     <div class="col-lg-4 col-sm-6">
@@ -63,7 +64,7 @@
                                             <div class="input-group has-validation mb-3">
                                                 <span class="input-group-text" id="product-price-addon">VNĐ</span>
                                                 <input type="text" class="form-control" name="giagoc" id="giagoc"
-                                                    value="{{ $editModel->giagoc }}" placeholder="Nhập giá gốc"
+                                                    value="{{ $matHang->giagoc }}" placeholder="Nhập giá gốc"
                                                     aria-label="Price" aria-describedby="product-price-addon">
                                             </div>
 
@@ -75,7 +76,7 @@
                                             <div class="input-group mb-3">
                                                 <span class="input-group-text" id="product-discount-addon">VNĐ</span>
                                                 <input type="text" class="form-control" name="giaban" id="giaban"
-                                                    value="{{ $editModel->giaban }}" placeholder="Nhập giá bán"
+                                                    value="{{ $matHang->giaban }}" placeholder="Nhập giá bán"
                                                     aria-label="discount" aria-describedby="product-discount-addon">
                                             </div>
                                         </div>
@@ -97,32 +98,9 @@
                             <p class="text-muted">Thêm hình ảnh chính của mặt hàng.
                             </p>
                             <div>
-                                <img style="width: 200px;" src="/storage/uploads/mathang/img/{{ $editModel->hinhanh }}"
+                                <img style="width: 200px;" src="/storage/uploads/mathang/img/{{ $matHang->hinhanh }}"
                                     alt="">
                             </div>
-                            {{-- <div class="text-center">
-                                <div class="position-relative d-inline-block">
-                                    <div class="position-absolute top-100 start-100 translate-middle">
-                                        <label for="product-image-input" class="mb-0" data-bs-toggle="tooltip"
-                                            data-bs-placement="right" title="Select Image">
-                                            <div class="avatar-xs">
-                                                <div
-                                                    class="avatar-title bg-light border rounded-circle text-muted cursor-pointer">
-                                                    <i class="ri-image-fill"></i>
-                                                </div>
-                                            </div>
-                                        </label>
-                                        <input name="hinhanh" class="form-control d-none" value=""
-                                            id="product-image-input" type="file"
-                                            accept="image/png, image/gif, image/jpeg">
-                                    </div>
-                                    <div class="avatar-lg">
-                                        <div class="avatar-title bg-light rounded">
-                                            <img src="" id="product-img" class="avatar-md h-auto" />
-                                        </div>
-                                    </div>
-                                </div>
-                            </div> --}}
                             <input class="form-control" name="hinhanh" type="file" id="hinhanh">
 
                         </div>
@@ -130,27 +108,24 @@
                             <h5 class="fs-14 mb-1">Hình ảnh mô tả của mặt hàng</h5>
                             <p class="text-muted">Thêm hình ảnh mô tả của sản phẩm.
                             </p>
+                            @if ($errors->count())
+                                <ul class="alert alert-warning">
+                                    @foreach ($errors->all() as $error)
+                                        <li>{{ $error }}</li>
+                                    @endforeach
+                                </ul>
+                            @endif
+                            <input name="hinhanhs[]" id="hinhanhs" type="file" multiple class="form-control ">
 
-                            <div class="dropzone">
-                                <div class="fallback">
-                                    <input name="hinhanhs[]" type="file" multiple
-                                        style="
-                                cursor: pointer;
-                                opacity: 0;   
-                                position: absolute;
-                                width: 100%;
-                                height: 200px;">
-                                </div>
-                                <div class="dz-message
-                                    needsclick"
-                                    style="text-align: center;">
-                                    <div class="mb-3">
-                                        <i class="display-4 text-muted ri-upload-cloud-2-fill"></i>
-                                    </div>
-                                    <h5>Drop files here or click to upload.</h5>
-                                </div>
-                            </div>
+                            @if (isset($matHang))
+                                @foreach ($anhs as $anh)
+                                    <img src="/storage/uploads/mathang/img/{{ $anh->hinhanh }}"
+                                        style="width: 150px; height: auto; object-fit: cover; margin: 5px;" />
+                                @endforeach
+                            @endif
+
                         </div>
+
 
                         <!-- end tab content -->
                     </div>
@@ -158,7 +133,7 @@
                 </div>
                 <!-- end card -->
                 <div class="text-end mb-3">
-                    <button type="submit" class="btn btn-success w-sm btn-save">Thêm</button>
+                    <button type="submit" class="btn btn-success w-sm btn-save">Lưu</button>
                 </div>
             </div>
             <!-- end col -->
@@ -172,12 +147,12 @@
                         <div class="mb-3">
                             <div class="form-check mb-2">
                                 <input class="form-check-input" type="radio" name="noibat" id="noibat_1"
-                                    value="1" checked>
+                                    value="1" {{ isset($matHang) && $matHang->noibat == 1 ? 'checked' : '' }}>
                                 <label class="form-check-label" for="noibat_1">Nổi bật</label>
                             </div>
                             <div class="form-check mb-2">
                                 <input class="form-check-input" type="radio" name="noibat" id="noibat_2"
-                                    value="0">
+                                    value="0" {{ isset($matHang) && $matHang->noibat == 0 ? 'checked' : '' }}>
                                 <label class="form-check-label" for="noibat_2">Không nổi bật</label>
                             </div>
                         </div>
@@ -193,9 +168,12 @@
                     <div class="card-body">
                         <p class="text-muted mb-2"> Chọn danh mục sản phẩm</p>
                         <select class="form-select" name="danhmuc_id" id="danhmuc_id">
-                            {{-- @foreach ($listDanhMuc as $item)
-                                <option value="{{ $item->id }}">{{ $item->tendanhmuc }}</option>
-                            @endforeach --}}
+                            @foreach ($danhMuc as $item)
+                                <option value="{{ $item->id }}"
+                                    {{ isset($matHang) ? ($matHang->danhmuc_id == $item->id ? 'selected' : '') : '' }}>
+                                    {{ $item->tendanhmuc }}
+                                </option>
+                            @endforeach
                         </select>
                     </div>
                     <!-- end card body -->
@@ -208,9 +186,12 @@
                     <div class="card-body">
                         <p class="text-muted mb-2"> Chọn thương hiệu sản phẩm</p>
                         <select class="form-select" name="thuonghieu_id" id="thuonghieu_id">
-                            {{-- @foreach ($listThuongHieu as $item)
-                                <option value="{{ $item->id }}">{{ $item->tenth }}</option>
-                            @endforeach --}}
+                            @foreach ($thuongHieu as $item)
+                                <option value="{{ $item->id }}"
+                                    {{ isset($matHang) ? ($matHang->thuonghieu_id == $item->id ? 'selected' : '') : '' }}>
+                                    {{ $item->tenth }}
+                                </option>
+                            @endforeach
                         </select>
                     </div>
                 </div>
@@ -222,4 +203,19 @@
         <!-- end row -->
 
     </form>
+@endsection
+
+@section('custom-js')
+    <script>
+        $(function() {
+            $('.btn-save').on('click', function(e) {
+                $('form[name="frmCreate"]').submit();
+                Swal.fire(
+                    'Đã lưu!',
+                    'Dữ liệu đã được lưu thành công.',
+                    'success',
+                );
+            });
+        });
+    </script>
 @endsection

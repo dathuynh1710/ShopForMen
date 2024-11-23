@@ -37,7 +37,7 @@
                         </div>
                         <div>
                             <label>Mô tả mặt hàng</label>
-                            <textarea name="mota" class="form-control " id="mota" placeholder="Nhập mô tả"></textarea>
+                            <textarea name="mota" class="form-control ckeditor-classic" id="mota" placeholder="Nhập mô tả"></textarea>
                         </div>
                     </div>
                 </div>
@@ -96,54 +96,16 @@
                             <h5 class="fs-14 mb-1">Hình ảnh mặt hàng</h5>
                             <p class="text-muted">Thêm hình ảnh chính của mặt hàng.
                             </p>
-                            <div class="text-center">
-                                <div class="position-relative d-inline-block">
-                                    <div class="position-absolute top-100 start-100 translate-middle">
-                                        <label for="product-image-input" class="mb-0" data-bs-toggle="tooltip"
-                                            data-bs-placement="right" title="Select Image">
-                                            <div class="avatar-xs">
-                                                <div
-                                                    class="avatar-title bg-light border rounded-circle text-muted cursor-pointer">
-                                                    <i class="ri-image-fill"></i>
-                                                </div>
-                                            </div>
-                                        </label>
-                                        <input name="hinhanh" class="form-control d-none" value=""
-                                            id="product-image-input" type="file"
-                                            accept="image/png, image/gif, image/jpeg">
-                                    </div>
-                                    <div class="avatar-lg">
-                                        <div class="avatar-title bg-light rounded">
-                                            <img src="" id="product-img" class="avatar-md h-auto" />
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                            <input name="hinhanh" class="form-control " value="" id="product-image-input"
+                                type="file" accept="image/png, image/gif, image/jpeg">
+
                         </div>
                         <div>
                             <h5 class="fs-14 mb-1">Hình ảnh mô tả của mặt hàng</h5>
                             <p class="text-muted">Thêm hình ảnh mô tả của sản phẩm.
                             </p>
+                            <input name="hinhanhs[]" type="file" multiple class="form-control ">
 
-                            <div class="dropzone">
-                                <div class="fallback">
-                                    <input name="hinhanhs[]" type="file" multiple
-                                        style="
-                                    cursor: pointer;
-                                    opacity: 0;   
-                                    position: absolute;
-                                    width: 100%;
-                                    height: 200px;">
-                                </div>
-                                <div class="dz-message
-                                        needsclick"
-                                    style="text-align: center;">
-                                    <div class="mb-3">
-                                        <i class="display-4 text-muted ri-upload-cloud-2-fill"></i>
-                                    </div>
-                                    <h5>Drop files here or click to upload.</h5>
-                                </div>
-                            </div>
                         </div>
 
                         <!-- end tab content -->
@@ -219,4 +181,20 @@
 @endsection
 
 @section('custom-js')
+    <script>
+        $(function() {
+            // Save button click handler
+            $('.btn-save').on('click', function(e) {
+                e.preventDefault();
+                const madanhmuc = $('#madanhmuc').val();
+                const tendanhmuc = $('#tendanhmuc').val();
+                $('form[name="frmCreate"]').submit();
+                Swal.fire(
+                    'Đã lưu!',
+                    'Dữ liệu đã được thêm mới thành công.',
+                    'success'
+                );
+            });
+        })
+    </script>
 @endsection

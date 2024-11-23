@@ -20,7 +20,7 @@ class HinhAnhSanPhamSeeder extends Seeder
         $arrProductIds = DB::table('mathang')->pluck('id');
 
         // Vòng lặp
-        for ($i = 1; $i <= 3; $i++) {
+        for ($i = 1; $i <= 2; $i++) {
             $row = [
                 'mathang_id' => $faker->randomElement($arrProductIds),
                 'hinhanh' => $faker->numberBetween(1, 3) . '.jpg',

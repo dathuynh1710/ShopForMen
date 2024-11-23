@@ -62,15 +62,16 @@ Route::get('/backend/mathang/them', [MatHangController::class, 'create'])
     ->name('backend.mathang.create');
 Route::post('/backend/mathang/store', [MatHangController::class, 'store'])
     ->name('backend.mathang.store');
+Route::get('/backend/mathang/{id}', [MatHangController::class, 'detail'])
+    ->name('backend.mathang.detail');
 Route::get('/backend/mathang/{id}', [MatHangController::class, 'edit'])
     ->name('backend.mathang.edit');
 Route::put('/backend/mathang/{id}', [MatHangController::class, 'update'])
     ->name('backend.mathang.update');
 Route::delete('/backend/mathang/{id}', [MatHangController::class, 'destroy'])
     ->name('backend.mathang.destroy');
-// Route::get('/backend/mathang/{id}', [MatHangController::class, 'detail'])
-//     ->name('backend.mathang.detail');
-// Route::get('/backend/mathang/{id}/detail', [MatHangController::class, 'detail'])->name('backend.mathang.detail');
+Route::get('/backend/mathang/{id}/detail', [MatHangController::class, 'show'])
+    ->name('backend.mathang.show');
 
 // * Nguoi dung
 Route::get('/backend/nguoidung', [NguoiDungController::class, 'index'])

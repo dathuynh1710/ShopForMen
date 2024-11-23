@@ -156,10 +156,13 @@
                                                                 <li class="list-inline-item" data-bs-toggle="tooltip"
                                                                     data-bs-trigger="hover" data-bs-placement="top"
                                                                     title="View">
-                                                                    <a href="#!" class="text-primary d-inline-block">
+                                                                    <a href="{{ route('backend.mathang.show', $mh->id) }}"
+                                                                        class="text-primary d-inline-block">
                                                                         <i class="ri-eye-fill fs-16"></i>
                                                                     </a>
                                                                 </li>
+
+
                                                                 <li class="list-inline-item edit" data-bs-toggle="tooltip"
                                                                     data-bs-trigger="hover" data-bs-placement="top"
                                                                     title="Edit">
@@ -168,11 +171,16 @@
                                                                         <i class="ri-pencil-fill fs-16"></i>
                                                                     </a>
                                                                 </li>
+
                                                                 <li class="list-inline-item" data-bs-toggle="tooltip"
                                                                     data-bs-trigger="hover" data-bs-placement="top"
                                                                     title="Remove">
-                                                                    <a class="text-danger d-inline-block remove-item-btn"
-                                                                        data-bs-toggle="modal" href="#deleteOrder">
+                                                                    <a style="cursor: pointer;"
+                                                                        class="text-danger
+                                                                        d-inline-block remove-item-btn btn-delete"
+                                                                        data-bs-toggle="modal"
+                                                                        data-id="{{ $mh->id }}"
+                                                                        data-delete-url="{{ route('backend.mathang.destroy', ['id' => $mh->id]) }}">
                                                                         <i class="ri-delete-bin-5-fill fs-16"></i>
                                                                     </a>
                                                                 </li>
@@ -232,7 +240,7 @@
                                                 @foreach ($dsMatHang as $mh)
                                                     @if ($mh->noibat == 1)
                                                         <tr class="gridjs-tr">
-                                                            <td data-column-id="product" class="gridjs-td">
+                                                            {{-- <td data-column-id="product" class="gridjs-td">
                                                                 <span>
                                                                     <div class="d-flex align-items-center">
                                                                         <div class="flex-shrink-0 me-3">
@@ -255,7 +263,32 @@
                                                                         </div>
                                                                     </div>
                                                                 </span>
+                                                            </td> --}}
+                                                            <td data-column-id="product" class="gridjs-td">
+                                                                <span>
+                                                                    <div class="d-flex align-items-center">
+                                                                        <div class="flex-shrink-0 me-3">
+                                                                            <div class="avatar-sm bg-light rounded p-1">
+                                                                                <!-- Hiển thị ảnh chính từ thư mục public/storage -->
+                                                                                <img src="{{ asset('storage/uploads/mathang/img/' . $mh->hinhanh) }}"
+                                                                                    alt=""
+                                                                                    class="img-fluid d-block" />
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="flex-grow-1">
+                                                                            <h5 class="fs-15 mb-1">
+                                                                                <a href="#!"
+                                                                                    class="text-body">{{ $mh->tenmathang }}</a>
+                                                                            </h5>
+                                                                            <p class="text-muted mb-0">Danh mục :
+                                                                                <span
+                                                                                    class="fw-medium">{{ $mh->danhmuc->tendanhmuc }}</span>
+                                                                            </p>
+                                                                        </div>
+                                                                    </div>
+                                                                </span>
                                                             </td>
+
                                                             <td data-column-id="stock" class="gridjs-td">
                                                                 {{ $mh->soluongton }}</td>
                                                             <td data-column-id="price" class="gridjs-td">
@@ -279,7 +312,7 @@
                                                                     <li class="list-inline-item" data-bs-toggle="tooltip"
                                                                         data-bs-trigger="hover" data-bs-placement="top"
                                                                         title="View">
-                                                                        <a href="#!"
+                                                                        <a href="{{ route('backend.mathang.show', $mh->id) }}"
                                                                             class="text-primary d-inline-block">
                                                                             <i class="ri-eye-fill fs-16"></i>
                                                                         </a>
@@ -295,8 +328,12 @@
                                                                     <li class="list-inline-item" data-bs-toggle="tooltip"
                                                                         data-bs-trigger="hover" data-bs-placement="top"
                                                                         title="Remove">
-                                                                        <a class="text-danger d-inline-block remove-item-btn"
-                                                                            data-bs-toggle="modal" href="#deleteOrder">
+                                                                        <a style="cursor: pointer;"
+                                                                            class="text-danger
+                                                                        d-inline-block remove-item-btn btn-delete"
+                                                                            data-bs-toggle="modal"
+                                                                            data-id="{{ $mh->id }}"
+                                                                            data-delete-url="{{ route('backend.mathang.destroy', ['id' => $mh->id]) }}">
                                                                             <i class="ri-delete-bin-5-fill fs-16"></i>
                                                                         </a>
                                                                     </li>
@@ -312,19 +349,61 @@
                             </div>
                         </div>
                         <!-- end tab pane -->
-
-                        <div class="tab-pane" id="productnav-draft" role="tabpanel">
-                            <div class="py-4 text-center">
-                                <lord-icon src="https://cdn.lordicon.com/msoeawqm.json" trigger="loop"
-                                    colors="primary:#405189,secondary:#0ab39c" style="width:72px;height:72px">
-                                </lord-icon>
-                                <h5 class="mt-4">Sorry! No Result Found</h5>
-                            </div>
-                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+
     {!! $dsMatHang->withQueryString()->links('pagination::bootstrap-5') !!}
+@endsection
+
+@section('custom-js')
+    <script>
+        $(function() {
+            // nhờ jquery tìm phần tử đang áp dụng class btn-delete
+            // ->yêu cầu những phần tử tìm được làm 1 cái j đó (action)
+            $('.btn-delete').on('click', function() { // đăng ký sự kiện
+                var id = $(this).attr("data-id");
+                var deleteUrl = $(this).attr("data-delete-url");
+                var btnDelete = $(this);
+                Swal.fire({
+                    title: "Bạn có chắc chắn muốn xóa không?",
+                    text: "Bạn sẽ không thể khôi phục dữ liệu khi xóa!",
+                    icon: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: "#DD0000",
+                    cancelButtonColor: "#C0C0C0	",
+                    confirmButtonText: "Đồng ý",
+                    cancelButtonText: "Hủy bỏ"
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        // Nho JS goi request den sever
+                        var postData = {
+                            '_token': '{{ csrf_token() }}',
+                            '_method': 'DELETE',
+                            'id': id
+                        };
+                        $.post(deleteUrl, postData)
+                            .done(function() {
+                                Swal.fire(
+                                    'Đã xóa!',
+                                    'Dữ liệu đã được xóa thành công.',
+                                    'success'
+                                ).then(() => {
+                                    btnDelete.parent().parent().remove();
+                                });
+                            })
+                            .fail(function(e) {
+                                Swal.fire(
+                                    'Lỗi!',
+                                    'Có lỗi xảy ra trong quá trình xóa.',
+                                    'error'
+                                );
+                            });
+                    }
+                });
+            });
+        });
+    </script>
 @endsection
