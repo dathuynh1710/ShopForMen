@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\ChiTietDonHang;
-use App\Models\NguoiDung;
+use App\Models\User;
 
 class DonHang extends Model
 {
@@ -32,7 +32,7 @@ class DonHang extends Model
     public function nguoidung()
     {
         return $this->belongsTo(
-            NguoiDung::class,
+            User::class,
             'nguoidung_id',
             'id'
         );

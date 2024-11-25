@@ -13,12 +13,12 @@ return new class extends Migration
     {
         Schema::create('diachi', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->bigInteger('nguoidung_id')->unsigned();
+            $table->unsignedBigInteger('nguoidung_id');
             $table->text('diachi');
             $table->tinyInteger('macdinh')->default(1);
             $table->timestamps();
 
-            $table->foreign('nguoidung_id')->references('id')->on('nguoidung');
+            $table->foreign('nguoidung_id')->references('id')->on('users');
         });
     }
 

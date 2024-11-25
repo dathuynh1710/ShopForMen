@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('trangthai');
             $table->timestamps();
 
-            $table->foreign('nguoidung_id')->references('id')->on('nguoidung');
+            $table->foreign('nguoidung_id')->references('id')->on('users');
         });
     }
 

@@ -95,27 +95,21 @@
                 <li class="menu-title"><i class="ri-more-fill"></i> <span data-key="t-pages">Pages</span></li>
 
                 <li class="nav-item">
-                    <a class="nav-link menu-link" href="{{ route('backend.danhmuc.index') }}"
-                        data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarAuth">
-                        <i class="ri-account-circle-line"></i> <span data-key="t-authentication">Quản lý người
-                            dùng</span>
+
+                    <a class="nav-link menu-link" href="{{ route('backend.nguoidung.index') }}"> <i
+                            class="ri-account-circle-line"></i> Quản lý người dùng
                     </a>
                 </li>
-
                 <li class="nav-item">
-                    <a class="nav-link menu-link" href="{{ route('backend.mathang.index') }}"
-                        data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarPages">
-                        <i class="ri-pages-line"></i> <span data-key="t-pages">Quản lý mặt hàng</span>
+                    <a class="nav-link menu-link" href="{{ route('backend.mathang.index') }}"> <i
+                            class="ri-pages-line"></i> Quản lý mặt hàng
                     </a>
-
                 </li>
-
                 <li class="nav-item">
-                    <a class="nav-link menu-link" href="#sidebarLanding" data-bs-toggle="collapse" role="button"
-                        aria-expanded="false" aria-controls="sidebarLanding">
-                        <i class="ri-rocket-line"></i> <span data-key="t-landing">Quản lý danh mục</span>
+                    <a class="nav-link menu-link" href="{{ route('backend.danhmuc.index') }}"> <i
+                            class="ri-rocket-line"></i> Quản lý
+                        danh mục
                     </a>
-
                 </li>
 
                 <li class="menu-title"><i class="ri-more-fill"></i> <span data-key="t-components">Components</span>

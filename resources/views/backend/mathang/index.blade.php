@@ -240,30 +240,6 @@
                                                 @foreach ($dsMatHang as $mh)
                                                     @if ($mh->noibat == 1)
                                                         <tr class="gridjs-tr">
-                                                            {{-- <td data-column-id="product" class="gridjs-td">
-                                                                <span>
-                                                                    <div class="d-flex align-items-center">
-                                                                        <div class="flex-shrink-0 me-3">
-                                                                            <div class="avatar-sm bg-light rounded p-1">
-                                                                                <img src="/storage/uploads/mathang/img/{{ $mh->hinhanh }}"
-                                                                                    alt=""
-                                                                                    class="img-fluid d-block" />
-                                                                            </div>
-                                                                        </div>
-                                                                        <div class="flex-grow-1">
-                                                                            <h5 class="fs-15 mb-1">
-                                                                                <a href="#!"
-                                                                                    class="text-body">{{ $mh->tenmathang }}
-                                                                                </a>
-                                                                            </h5>
-                                                                            <p class="text-muted mb-0">Danh mục :
-                                                                                <span
-                                                                                    class="fw-medium">{{ $mh->danhmuc->tendanhmuc }}</span>
-                                                                            </p>
-                                                                        </div>
-                                                                    </div>
-                                                                </span>
-                                                            </td> --}}
                                                             <td data-column-id="product" class="gridjs-td">
                                                                 <span>
                                                                     <div class="d-flex align-items-center">

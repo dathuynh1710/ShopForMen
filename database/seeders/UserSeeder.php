@@ -4,10 +4,10 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
-use DB;
 
-class NguoiDungSeeder extends Seeder
+class UserSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -18,7 +18,7 @@ class NguoiDungSeeder extends Seeder
         $row1 = [
             'email'     => 'huynhthanhdat2506@gmail.com',
             'sodienthoai'    => '0337791477',
-            'matkhau'          => Hash::make('123'),
+            'password'          => Hash::make('123'),
             'hoten'       => 'Huynh Thanh Dat',
             'loai'       => 1, // #1: khachhang, #0: admin
             'trangthai'       => 1, // #1: Đang sử dụng; #0: ngưng sử dụng
@@ -28,13 +28,13 @@ class NguoiDungSeeder extends Seeder
         $row2 = [
             'email'     => 'nguyentienkhoa@gmail.com',
             'sodienthoai'    => '0123456789',
-            'matkhau'          => Hash::make('123'),
+            'password'          => Hash::make('123'),
             'hoten'       => 'Nguyen Tien Khoa',
             'loai'       => 0, // #1: khachhang, #0: admin
             'trangthai'       => 1, // #1: Đang sử dụng; #0: ngưng sử dụng
             'hinhanh'       => 'avatar2.jpg',
         ];
         array_push($list, $row2);
-        DB::table('nguoidung')->insert($list);
+        DB::table('users')->insert($list);
     }
 }

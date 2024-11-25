@@ -55,7 +55,7 @@
                                         </div>
                                         <label class="form-label" for="password-input">Password</label>
                                         <div class="position-relative auth-pass-inputgroup mb-3">
-                                            <input type="password" name="matkhau" class="form-control pe-5 password-input"
+                                            <input type="password" name="password" class="form-control pe-5 password-input"
                                                 placeholder="Enter password" id="password-input">
                                             <button
                                                 class="btn btn-link position-absolute end-0 top-0 text-decoration-none text-muted password-addon"

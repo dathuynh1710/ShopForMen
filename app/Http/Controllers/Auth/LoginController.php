@@ -5,17 +5,11 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Redirect;
-use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Support\Facades\Hash;
 
 class LoginController extends Controller
 {
-    use AuthenticatesUsers;
-
-    //Sau khi đăng nhập thành công, sẽ tự động trỏ về trang /admin/
-    protected $redirectTo = 'backend';
-
-    public function index()
+    public function show_login()
     {
         return view('auth.login.index');
     }
@@ -25,30 +19,51 @@ class LoginController extends Controller
         return view('backend.dashboard.index');
     }
 
-    public function username()
+    public function authenticate(Request $request)
     {
-        return 'email';
-    }
+        $credentials = $request->validate(
+            [
+                'email' => ['required', 'email'],
+                'password' => ['required'],
+            ],
+            [
+                'email.required' => 'Email is required',
+                'email.email' => 'Email is not valid',
+                'password.required' => 'Password is required',
+            ]
+        );
 
-    protected function credentials(Request $request)
-    {
-        $cred = $request->only($this->username(), 'matkhau');
-        return $cred;
-    }
+        // Attempt to log in the user
+        if (Auth::attempt($credentials)) {
+            $user = Auth::user();
 
-    protected function validateLogin(Request $request)
-    {
-        $request->validate([
-            $this->username() => 'required|string', // tên tài khoản bắt buộc nhập
-            'matkhau' => 'required|string',       // mật khẩu bắt buộc nhập
+            // Check if the user's account is inactive
+            if ($user->trangthai === 0) {
+                Auth::logout(); // Log out if the user is inactive
+                $request->session()->flash('error', 'Your account is inactive!');
+                return redirect()->route('auth.login.show'); // Redirect to the login page
+            }
+
+            $request->session()->flash('success', 'Đăng nhập thành công!');
+            $request->session()->regenerate();
+
+            return redirect()->intended(route('auth.login.dashboard'));
+        }
+
+        return back()->withErrors([
+            'email' => 'Wrong email or password',
         ]);
     }
 
-    protected function attemptLogin(Request $request)
+    public function logout(Request $request)
     {
-        return $this->guard()->attempt(
-            $this->credentials($request),
-            $request->filled('remember')
-        );
+        Auth::logout();
+
+        $request->session()->invalidate();
+
+        $request->session()->regenerateToken();
+
+        $request->session()->flash('success', 'Đăng xuất thành công!');
+        return redirect(route('auth.login.show'));
     }
 }

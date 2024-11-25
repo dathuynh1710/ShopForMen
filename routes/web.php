@@ -30,49 +30,63 @@ Route::get('/contact', function () {
     return view('frontend.contact');
 })->name('contact');
 
-//^ Backend
-Route::get('/backend', [LoginController::class, 'dashboard'])
-    ->name('auth.login.dashboard');
-// * Auth
-Route::get('/backend/login', [LoginController::class, 'index'])
-    ->name('auth.login.index');
-Route::post('/backend/login', [LoginController::class, 'login'])
+Route::get('/backend/login', [LoginController::class, 'show_login'])
+    ->name('auth.login.show');
+Route::post('/backend/login', [LoginController::class, 'authenticate'])
     ->name('auth.login.login');
-Route::post('/backend/logout', [LoginController::class, 'logout'])
-    ->name('auth.login.logout');
-// * Danh muc
-Route::get('/backend/danhmuc', [DanhMucController::class, 'index'])
-    ->name('backend.danhmuc.index');
-Route::get('/backend/danhmuc/them', [DanhMucController::class, 'create'])
-    ->name('backend.danhmuc.create');
-Route::post('/backend/danhmuc/store', [DanhMucController::class, 'store'])
-    ->name('backend.danhmuc.store');
-Route::get('/backend/danhmuc/{id}', [DanhMucController::class, 'edit'])
-    ->name('backend.danhmuc.edit');
-Route::put('/backend/danhmuc/{id}', [DanhMucController::class, 'update'])
-    ->name('backend.danhmuc.update');
-Route::delete('/backend/danhmuc/{id}', [DanhMucController::class, 'destroy'])
-    ->name('backend.danhmuc.destroy');
-// * Mat hang
-Route::get('/backend/mathang', [MatHangController::class, 'index'])
-    ->name('backend.mathang.index');
-Route::get('/backend/mathang/search', [MatHangController::class, 'search'])
-    ->name('backend.mathang.search');
-Route::get('/backend/mathang/them', [MatHangController::class, 'create'])
-    ->name('backend.mathang.create');
-Route::post('/backend/mathang/store', [MatHangController::class, 'store'])
-    ->name('backend.mathang.store');
-Route::get('/backend/mathang/{id}', [MatHangController::class, 'detail'])
-    ->name('backend.mathang.detail');
-Route::get('/backend/mathang/{id}', [MatHangController::class, 'edit'])
-    ->name('backend.mathang.edit');
-Route::put('/backend/mathang/{id}', [MatHangController::class, 'update'])
-    ->name('backend.mathang.update');
-Route::delete('/backend/mathang/{id}', [MatHangController::class, 'destroy'])
-    ->name('backend.mathang.destroy');
-Route::get('/backend/mathang/{id}/detail', [MatHangController::class, 'show'])
-    ->name('backend.mathang.show');
 
-// * Nguoi dung
-Route::get('/backend/nguoidung', [NguoiDungController::class, 'index'])
-    ->name('backend.nguoidung.index');
+//^ Backend
+Route::middleware(['auth'])->group(function () {
+    // * Auth
+    Route::get('/backend', [LoginController::class, 'dashboard'])
+        ->name('auth.login.dashboard');
+    Route::get('/backend/logout', [LoginController::class, 'logout'])
+        ->name('auth.login.logout');
+    // * Danh muc
+    Route::get('/backend/danhmuc', [DanhMucController::class, 'index'])
+        ->name('backend.danhmuc.index');
+    Route::get('/backend/danhmuc/them', [DanhMucController::class, 'create'])
+        ->name('backend.danhmuc.create');
+    Route::post('/backend/danhmuc/store', [DanhMucController::class, 'store'])
+        ->name('backend.danhmuc.store');
+    Route::get('/backend/danhmuc/{id}', [DanhMucController::class, 'edit'])
+        ->name('backend.danhmuc.edit');
+    Route::put('/backend/danhmuc/{id}', [DanhMucController::class, 'update'])
+        ->name('backend.danhmuc.update');
+    Route::delete('/backend/danhmuc/{id}', [DanhMucController::class, 'destroy'])
+        ->name('backend.danhmuc.destroy');
+    // * Mat hang
+    Route::get('/backend/mathang', [MatHangController::class, 'index'])
+        ->name('backend.mathang.index');
+    Route::get('/backend/mathang/search', [MatHangController::class, 'search'])
+        ->name('backend.mathang.search');
+    Route::get('/backend/mathang/them', [MatHangController::class, 'create'])
+        ->name('backend.mathang.create');
+    Route::post('/backend/mathang/store', [MatHangController::class, 'store'])
+        ->name('backend.mathang.store');
+    Route::get('/backend/mathang/{id}', [MatHangController::class, 'detail'])
+        ->name('backend.mathang.detail');
+    Route::get('/backend/mathang/{id}', [MatHangController::class, 'edit'])
+        ->name('backend.mathang.edit');
+    Route::put('/backend/mathang/{id}', [MatHangController::class, 'update'])
+        ->name('backend.mathang.update');
+    Route::delete('/backend/mathang/{id}', [MatHangController::class, 'destroy'])
+        ->name('backend.mathang.destroy');
+    Route::get('/backend/mathang/{id}/detail', [MatHangController::class, 'show'])
+        ->name('backend.mathang.show');
+
+    // * Nguoi dung
+    Route::get('/backend/nguoidung', [NguoiDungController::class, 'index'])
+        ->name('backend.nguoidung.index');
+    Route::get('/backend/nguoidung/them', [NguoiDungController::class, 'create'])
+        ->name('backend.nguoidung.create');
+    Route::post('/backend/nguoidung/store', [NguoiDungController::class, 'store'])
+        ->name('backend.nguoidung.store');
+    Route::get('/backend/nguoidung/{id}', [NguoiDungController::class, 'edit'])
+        ->name('backend.nguoidung.edit');
+    Route::put('/backend/nguoidung/{id}', [NguoiDungController::class, 'update'])
+        ->name('backend.nguoidung.update');
+    Route::delete('/backend/nguoidung/{id}', [NguoiDungController::class, 'destroy'])
+        ->name('backend.nguoidung.destroy');
+    Route::patch('/backend/{nd}/trangthai', [NguoiDungController::class, 'doiTrangThai'])->name('backend.nguoidung.doitrangthai');
+});

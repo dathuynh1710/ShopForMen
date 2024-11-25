@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use App\Models\NguoiDung;
+use App\Models\User;
 
 class DiaChi extends Model
 {
@@ -28,7 +28,7 @@ class DiaChi extends Model
     public function diachi()
     {
         return $this->belongsTo(
-            NguoiDung::class,
+            User::class,
             'nguoidung_id',
             'id'
         );

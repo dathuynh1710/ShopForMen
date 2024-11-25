@@ -60,15 +60,9 @@ return [
     */
 
     'providers' => [
-        // 'users' => [
-        //     'driver' => 'custom',
-        //     'model' => env('AUTH_MODEL', App\Models\User::class),
-        // ],
-
-
         'users' => [
-            'driver' => 'custom',
-            'model' => App\Models\NguoiDung::class,
+            'driver' => 'eloquent',
+            'model' => App\Models\User::class, // Sử dụng model User mặc định
         ],
     ],
 
