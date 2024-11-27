@@ -94,12 +94,21 @@
 
                 <li class="menu-title"><i class="ri-more-fill"></i> <span data-key="t-pages">Pages</span></li>
 
-                <li class="nav-item">
+                {{-- <li class="nav-item">
 
                     <a class="nav-link menu-link" href="{{ route('backend.nguoidung.index') }}"> <i
                             class="ri-account-circle-line"></i> Quản lý người dùng
                     </a>
-                </li>
+                </li> --}}
+                @if (auth()->user() && auth()->user()->loai == 0)
+                    <li class="nav-item">
+                        <a class="nav-link menu-link" href="{{ route('backend.nguoidung.index') }}">
+                            <i class="ri-account-circle-line"></i> Quản lý người dùng
+                        </a>
+                    </li>
+                @endif
+
+
                 <li class="nav-item">
                     <a class="nav-link menu-link" href="{{ route('backend.mathang.index') }}"> <i
                             class="ri-pages-line"></i> Quản lý mặt hàng

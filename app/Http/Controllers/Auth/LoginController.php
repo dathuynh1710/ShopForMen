@@ -27,9 +27,9 @@ class LoginController extends Controller
                 'password' => ['required'],
             ],
             [
-                'email.required' => 'Email is required',
-                'email.email' => 'Email is not valid',
-                'password.required' => 'Password is required',
+                'email.required' => 'Email bắt buộc nhập',
+                'email.email' => 'Email không hợp lệ',
+                'password.required' => 'Password bắt buộc nhập',
             ]
         );
 
@@ -40,14 +40,11 @@ class LoginController extends Controller
             // Check if the user's account is inactive
             if ($user->trangthai === 0) {
                 Auth::logout(); // Log out if the user is inactive
-                $request->session()->flash('error', 'Your account is inactive!');
-                return redirect()->route('auth.login.show'); // Redirect to the login page
+                return back()->with('error', 'Tài khoản của bạn đã bị vô hiệu hóa');
             }
-
             $request->session()->flash('success', 'Đăng nhập thành công!');
             $request->session()->regenerate();
-
-            return redirect()->intended(route('auth.login.dashboard'));
+            return redirect()->intended(route('auth.login.dashboard'))->with('success', 'Đăng nhập thành công!');
         }
 
         return back()->withErrors([
@@ -64,6 +61,6 @@ class LoginController extends Controller
         $request->session()->regenerateToken();
 
         $request->session()->flash('success', 'Đăng xuất thành công!');
-        return redirect(route('auth.login.show'));
+        return redirect(route('auth.login.show'))->with('success', 'Đăng xuất thành công!');
     }
 }

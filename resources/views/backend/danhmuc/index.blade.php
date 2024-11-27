@@ -166,7 +166,7 @@
                                     'Dữ liệu đã được xóa thành công.',
                                     'success'
                                 ).then(() => {
-                                    btnDelete.parent().parent().remove();
+                                    btnDelete.closest('tr').remove();
                                 });
                             })
                             .fail(function(e) {

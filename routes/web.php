@@ -88,5 +88,10 @@ Route::middleware(['auth'])->group(function () {
         ->name('backend.nguoidung.update');
     Route::delete('/backend/nguoidung/{id}', [NguoiDungController::class, 'destroy'])
         ->name('backend.nguoidung.destroy');
+    Route::get('/backend/nguoidung/hoso', [NguoiDungController::class, 'profile'])
+        ->name('backend.nguoidung.profile');
+    Route::get('/backend/nguoidung/hoso/doimk', [NguoiDungController::class, 'doimk'])
+        ->name('backend.nguoidung.doimk');
+    Route::post('/backend/nguoidung/hoso/capnhat-password', [NguoiDungController::class, 'xulydoimk'])->name('backend.nguoidung.capnhatpassword');
     Route::patch('/backend/{nd}/trangthai', [NguoiDungController::class, 'doiTrangThai'])->name('backend.nguoidung.doitrangthai');
 });

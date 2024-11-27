@@ -35,52 +35,20 @@
                                 <div class="d-flex flex-wrap align-items-start gap-2">
                                     <button class="btn btn-soft-danger" id="remove-actions" onClick="deleteMultiple()"><i
                                             class="ri-delete-bin-2-line"></i></button>
-                                    <button type="button" class="btn btn-success add-btn" data-bs-toggle="modal"
-                                        id="create-btn" data-bs-target="#showModal"><i
-                                            class="ri-add-line align-bottom me-1"></i> Thêm</button>
+                                    <button type="button" class="btn btn-success add-btn" id="create-btn">
+                                        <i class="ri-add-line align-bottom me-1"></i> Thêm
+                                    </button>
+
+                                    <script>
+                                        document.getElementById('create-btn').addEventListener('click', function() {
+                                            window.location.href = "{{ route('backend.nguoidung.create') }}";
+                                        });
+                                    </script>
                                     <button type="button" class="btn btn-info"><i
                                             class="ri-file-download-line align-bottom me-1"></i> Import</button>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="card-body border-bottom-dashed border-bottom">
-                        <form>
-                            <div class="row g-3">
-                                <div class="col-xl-6">
-                                    <div class="search-box">
-                                        <input type="text" class="form-control search"
-                                            placeholder="Search for customer, email, phone, status or something...">
-                                        <i class="ri-search-line search-icon"></i>
-                                    </div>
-                                </div>
-                                <!--end col-->
-                                <div class="col-xl-6">
-                                    <div class="row g-3">
-                                        <div class="col-sm-4">
-                                            <div class="">
-                                                <input type="text" class="form-control" id="datepicker-range"
-                                                    data-provider="flatpickr" data-date-format="d M, Y"
-                                                    data-range-date="true" placeholder="Select date">
-                                            </div>
-                                        </div>
-                                        <!--end col-->
-
-                                        <!--end col-->
-
-                                        <div class="col-sm-4">
-                                            <div>
-                                                <button type="button" class="btn btn-primary w-100"
-                                                    onclick="SearchData();"> <i
-                                                        class="ri-equalizer-fill me-2 align-bottom"></i>Filters</button>
-                                            </div>
-                                        </div>
-                                        <!--end col-->
-                                    </div>
-                                </div>
-                            </div>
-                            <!--end row-->
-                        </form>
                     </div>
                     <div class="card-body">
                         <div>
@@ -103,7 +71,7 @@
                                                         <div class="d-flex align-items-center">
                                                             <div class="flex-shrink-0 me-3">
                                                                 <div class="avatar-sm bg-light rounded p-1">
-                                                                    <img src="/storage/uploads/mathang/img/hinhanh"
+                                                                    <img src="/storage/uploads/nguoidung/img/{{ $nd->hinhanh }}"
                                                                         alt="" class="img-fluid d-block" />
                                                                 </div>
                                                             </div>
@@ -119,7 +87,6 @@
                                                                         <span>Staff</span>
                                                                     @endif
                                                                 </p>
-
                                                             </div>
                                                         </div>
                                                     </span>
@@ -127,7 +94,6 @@
                                                 <td class="email">{{ $nd->email }}</td>
                                                 <td class="phone">{{ $nd->sodienthoai }}</td>
                                                 <td>
-
                                                     <form action="{{ route('backend.nguoidung.doitrangthai', $nd->id) }}"
                                                         method="post">
                                                         @csrf
@@ -147,19 +113,19 @@
                                                 <td>
                                                     <ul class="list-inline hstack gap-2 mb-0">
                                                         {{-- btn-edit --}}
-                                                        <li class="list-inline-item edit" data-bs-toggle="tooltip"
-                                                            data-bs-trigger="hover" data-bs-placement="top" title="Edit">
-                                                            <a href="#showModal" data-bs-toggle="modal"
+                                                        <li class="list-inline-item edit" data-bs-placement="top"
+                                                            title="Edit">
+                                                            <a href="{{ route('backend.nguoidung.edit', ['id' => $nd->id]) }}"
                                                                 class="text-primary d-inline-block edit-item-btn">
                                                                 <i class="ri-pencil-fill fs-16"></i>
                                                             </a>
                                                         </li>
                                                         {{-- btn-remove --}}
-                                                        <li class="list-inline-item" data-bs-toggle="tooltip"
-                                                            data-bs-trigger="hover" data-bs-placement="top"
-                                                            title="Remove">
-                                                            <a class="text-danger d-inline-block remove-item-btn"
-                                                                data-bs-toggle="modal" href="#deleteRecordModal">
+                                                        <li class="list-inline-item"title="Remove">
+                                                            <a style="cursor: pointer;"
+                                                                class="text-danger d-inline-block remove-item-btn btn-delete"
+                                                                data-id="{{ $nd->id }}"
+                                                                data-delete-url="{{ route('backend.nguoidung.destroy', ['id' => $nd->id]) }}">
                                                                 <i class="ri-delete-bin-5-fill fs-16"></i>
                                                             </a>
                                                         </li>
@@ -183,79 +149,59 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="modal fade" id="showModal" tabindex="-1" aria-hidden="true">
-                            <div class="modal-dialog modal-dialog-centered">
-                                <div class="modal-content">
-                                    <div class="modal-header bg-light p-3">
-                                        <h5 class="modal-title" id="exampleModalLabel"></h5>
-                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                            aria-label="Close" id="close-modal"></button>
-                                    </div>
-                                    <form class="tablelist-form" autocomplete="off">
-                                        <div class="modal-body">
-                                            <input type="hidden" id="id-field" />
-
-                                            <div class="mb-3" id="modal-id" style="display: none;">
-                                                <label for="id-field1" class="form-label">ID</label>
-                                                <input type="text" id="id-field1" class="form-control"
-                                                    placeholder="ID" readonly />
-                                            </div>
-
-                                            <div class="mb-3">
-                                                <label for="customername-field" class="form-label">Customer Name</label>
-                                                <input type="text" id="customername-field" class="form-control"
-                                                    placeholder="Enter name" required />
-                                                <div class="invalid-feedback">Please enter a customer name.</div>
-                                            </div>
-
-                                            <div class="mb-3">
-                                                <label for="email-field" class="form-label">Email</label>
-                                                <input type="email" id="email-field" class="form-control"
-                                                    placeholder="Enter email" required />
-                                                <div class="invalid-feedback">Please enter an email.</div>
-                                            </div>
-
-                                            <div class="mb-3">
-                                                <label for="phone-field" class="form-label">Phone</label>
-                                                <input type="text" id="phone-field" class="form-control"
-                                                    placeholder="Enter phone no." required />
-                                                <div class="invalid-feedback">Please enter a phone.</div>
-                                            </div>
-
-                                            <div class="mb-3">
-                                                <label for="date-field" class="form-label">Joining Date</label>
-                                                <input type="date" id="date-field" class="form-control"
-                                                    data-provider="flatpickr" data-date-format="d M, Y" required
-                                                    placeholder="Select date" />
-                                                <div class="invalid-feedback">Please select a date.</div>
-                                            </div>
-
-                                            <div>
-                                                <label for="status-field" class="form-label">Status</label>
-                                                <select class="form-control" data-choices data-choices-search-false
-                                                    name="status-field" id="status-field" required>
-                                                    <option value="">Status</option>
-                                                    <option value="Active">Active</option>
-                                                    <option value="Block">Block</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <div class="modal-footer">
-                                            <div class="hstack gap-2 justify-content-end">
-                                                <button type="button" class="btn btn-light"
-                                                    data-bs-dismiss="modal">Close</button>
-                                                <button type="submit" class="btn btn-success" id="add-btn">Add
-                                                    Customer</button>
-                                                <!-- <button type="button" class="btn btn-success" id="edit-btn">Update</button> -->
-                                            </div>
-                                        </div>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+@endsection
+
+@section('custom-js')
+    <script>
+        $(function() {
+            // nhờ jquery tìm phần tử đang áp dụng class btn-delete
+            // ->yêu cầu những phần tử tìm được làm 1 cái j đó (action)
+            $('.btn-delete').on('click', function() { // đăng ký sự kiện
+                var id = $(this).attr("data-id");
+                var deleteUrl = $(this).attr("data-delete-url");
+                var btnDelete = $(this);
+                Swal.fire({
+                    title: "Bạn có chắc chắn muốn xóa không?",
+                    text: "Bạn sẽ không thể khôi phục dữ liệu khi xóa!",
+                    icon: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: "#DD0000",
+                    cancelButtonColor: "#C0C0C0	",
+                    confirmButtonText: "Đồng ý",
+                    cancelButtonText: "Hủy bỏ"
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        // Nho JS goi request den sever
+                        var postData = {
+                            '_token': '{{ csrf_token() }}',
+                            '_method': 'DELETE',
+                            'id': id
+                        };
+                        $.post(deleteUrl, postData)
+                            .done(function() {
+                                Swal.fire(
+                                    'Đã xóa!',
+                                    'Dữ liệu đã được xóa thành công.',
+                                    'success'
+                                ).then(() => {
+                                    btnDelete.closest('tr').remove();
+                                });
+                            })
+                            .fail(function(e) {
+                                Swal.fire(
+                                    'Lỗi!',
+                                    'Có lỗi xảy ra trong quá trình xóa.',
+                                    'error'
+                                );
+                            });
+                    }
+                });
+            });
+        });
+    </script>
 @endsection

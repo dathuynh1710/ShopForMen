@@ -481,13 +481,14 @@
                     <button type="button" class="btn material-shadow-none" id="page-header-user-dropdown"
                         data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <span class="d-flex align-items-center">
-                            <img class="rounded-circle header-profile-user"
-                                src="{{ asset('assets/images/users/avatar-1.jpg') }}" alt="Header Avatar">
+                            <img class="rounded-circle header-profile-user" style="object-fit: cover;"
+                                src="{{ asset('storage/uploads/nguoidung/img/' . auth()->user()->hinhanh) }}"
+                                alt="Header Avatar">
                             <span class="text-start ms-xl-2">
                                 <span class="d-none d-xl-inline-block ms-1 fw-medium user-name-text">
                                     {{ auth()->user()->hoten }}
                                 </span>
-                                @if (auth()->user()->trangthai == 0)
+                                @if (auth()->user()->loai == 0)
                                     <span class="d-none d-xl-block ms-1 fs-12 user-name-sub-text">Admin</span>
                                 @else
                                     <span class="d-none d-xl-block ms-1 fs-12 user-name-sub-text">Staff</span>
@@ -499,7 +500,7 @@
                     <div class="dropdown-menu dropdown-menu-end">
                         <!-- item-->
 
-                        <a class="dropdown-item" href="pages-profile.html"><i
+                        <a class="dropdown-item" href="{{ route('backend.nguoidung.profile') }}"><i
                                 class="mdi mdi-account-circle text-muted fs-16 align-middle me-1"></i> <span
                                 class="align-middle">Profile</span></a>
                         <a class="dropdown-item" href="#!"><i

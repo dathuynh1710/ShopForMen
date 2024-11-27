@@ -214,10 +214,37 @@ class MatHangController extends Controller
         return view('backend.mathang.detail', compact('product', 'images'));
     }
 
-
     public function destroy($id)
     {
-        MatHang::destroy($id);
-        return redirect(route('backend.mathang.index'));
+        try {
+            // Tìm mặt hàng cần xóa
+            $matHang = MatHang::findOrFail($id);
+
+            // Xóa các ảnh phụ liên quan trong bảng hinhanh_sanpham và thư mục lưu trữ
+            $anhs = HinhAnhSanPham::where('mathang_id', $id)->get();
+            foreach ($anhs as $anh) {
+                $filePath = 'uploads/mathang/img/' . $anh->hinhanh;
+                // Xóa file ảnh phụ
+                if (Storage::disk('public')->exists($filePath)) {
+                    Storage::disk('public')->delete($filePath);
+                }
+                // Xóa trong DB
+                $anh->delete();
+            }
+
+            // Xóa ảnh chính của mặt hàng nếu tồn tại
+            if ($matHang->hinhanh) {
+                $filePath = 'uploads/mathang/img/' . $matHang->hinhanh;
+                if (Storage::disk('public')->exists($filePath)) {
+                    Storage::disk('public')->delete($filePath);
+                }
+            }
+            // Xóa mặt hàng
+            $matHang->delete();
+        } catch (\Exception $e) {
+            return response()->json([
+                'message' => 'Không thể xóa mặt hàng. Lỗi: ' . $e->getMessage(),
+            ], 500);
+        }
     }
 }

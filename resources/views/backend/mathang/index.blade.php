@@ -306,10 +306,8 @@
                                                                         title="Remove">
                                                                         <a style="cursor: pointer;"
                                                                             class="text-danger
-                                                                        d-inline-block remove-item-btn btn-delete"
-                                                                            data-bs-toggle="modal"
-                                                                            data-id="{{ $mh->id }}"
-                                                                            data-delete-url="{{ route('backend.mathang.destroy', ['id' => $mh->id]) }}">
+                                                                        d-inline-block remove-item-btn "
+                                                                            data-bs-toggle="modal">
                                                                             <i class="ri-delete-bin-5-fill fs-16"></i>
                                                                         </a>
                                                                     </li>
@@ -367,13 +365,15 @@
                                     'Dữ liệu đã được xóa thành công.',
                                     'success'
                                 ).then(() => {
-                                    btnDelete.parent().parent().remove();
+                                    btnDelete.closest('tr').remove();
                                 });
                             })
                             .fail(function(e) {
+                                console.error('Lỗi chi tiết:', e); // In chi tiết lỗi ra console
                                 Swal.fire(
                                     'Lỗi!',
-                                    'Có lỗi xảy ra trong quá trình xóa.',
+                                    'Có lỗi xảy ra trong quá trình xóa: ' + (e.responseJSON
+                                        ?.message || 'Không xác định.'),
                                     'error'
                                 );
                             });
