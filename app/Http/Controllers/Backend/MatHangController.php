@@ -28,16 +28,31 @@ class MatHangController extends Controller
     }
 
 
+    // public function search(Request $request)
+    // {
+    //     $search = $request->search;
+    //     $query = MatHang::query();
+    //     $totalMH = MatHang::count();
+    //     $soMHNoiBat = MatHang::where('noibat', 1)->count();
+    //     $query->whereAny(['tenmathang'], 'LIKE', "%$search%");
+    //     $dsMatHang = $query->get();
+
+    //     return view('backend.mathang.index', compact('dsMatHang', 'totalMH', 'soMHNoiBat'));
+    // }
+
     public function search(Request $request)
     {
-        $search = $request->search;
-        $result = MatHang::where(function ($query) use ($search) {
-            $query->where('tenmathang', 'like', "%$search%");
-        })
-            ->get();
-
-        return view('backend.mathang.index', compact('result', 'search'));
+        $search = $request->input('search');
+        $query = MatHang::query();
+        $totalMH = MatHang::count();
+        $soMHNoiBat = MatHang::where('noibat', 1)->count();
+        if (!empty($search)) {
+            $query->where('tenmathang', 'LIKE', "%$search%");
+        }
+        $dsMatHang = $query->paginate(10)->withQueryString();
+        return view('backend.mathang.index', compact('dsMatHang', 'totalMH', 'soMHNoiBat'));
     }
+
 
     public function create()
     {

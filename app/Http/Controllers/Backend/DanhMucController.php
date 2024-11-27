@@ -10,17 +10,28 @@ use Dotenv\Validator as DotenvValidator;
 use Illuminate\Auth\Events\Validated;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\File;
-
+use Titasgailius\SearchRelations\SearchesRelations;
 use Validator;
 use Session;
 use Storage;
 
 class DanhMucController extends Controller
 {
+
     public function index()
     {
         $dsDanhMuc = DanhMuc::all();
         return view('backend.danhmuc.index')->with('dsDanhMuc', $dsDanhMuc);
+    }
+
+    public function search(Request $request)
+    {
+
+        $search = $request->search;
+        $query = DanhMuc::query();
+        $query->whereAny(['tendanhmuc', 'madanhmuc'], 'LIKE', "%$search%");
+        $dsDanhMuc = $query->get();
+        return view('backend.danhmuc.index', compact('dsDanhMuc'));
     }
 
     // action create: hiển thị form giao diện cho người dùng nhập liệu

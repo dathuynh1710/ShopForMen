@@ -28,17 +28,20 @@
                         <div class="col-sm-auto">
                             <div>
                                 <a href="{{ route('backend.mathang.create') }}" class="btn btn-success"
-                                    id="addproduct-btn"><i class="ri-add-line align-bottom me-1"></i> Add Product</a>
+                                    id="addproduct-btn"><i class="ri-add-line align-bottom me-1"></i> Thêm mặt hàng</a>
                             </div>
                         </div>
                         <div class="col-sm">
-                            <div class="d-flex justify-content-sm-end">
-                                <div class="search-box ms-2">
-                                    <input type="text" class="form-control" id="searchProductList"
-                                        placeholder="Search Products...">
-                                    <i class="ri-search-line search-icon"></i>
+                            <form method="GET" action="{{ route('backend.mathang.search') }}">
+
+                                <div class="d-flex justify-content-sm-end">
+                                    <div class="search-box ms-2">
+                                        <input type="text" class="form-control" id="searchProductList"
+                                            placeholder="Nhập tên mặt hàng..." name="search">
+                                        <i class="ri-search-line search-icon"></i>
+                                    </div>
                                 </div>
-                            </div>
+                            </form>
                         </div>
                     </div>
                 </div>

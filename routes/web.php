@@ -45,6 +45,8 @@ Route::middleware(['auth'])->group(function () {
     // * Danh muc
     Route::get('/backend/danhmuc', [DanhMucController::class, 'index'])
         ->name('backend.danhmuc.index');
+    Route::get('/backend/danhmuc/search', [DanhMucController::class, 'search'])
+        ->name('backend.danhmuc.search');
     Route::get('/backend/danhmuc/them', [DanhMucController::class, 'create'])
         ->name('backend.danhmuc.create');
     Route::post('/backend/danhmuc/store', [DanhMucController::class, 'store'])
