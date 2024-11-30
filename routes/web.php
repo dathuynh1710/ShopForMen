@@ -5,31 +5,23 @@ use App\Http\Controllers\Backend\DanhMucController;
 use App\Http\Controllers\Backend\MatHangController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Backend\NguoiDungController;
+use App\Http\Controllers\Frontend\HomeController;
 use App\Models\DanhMuc;
 use App\Models\MatHang;
 use App\Models\ThuongHieu;
 use App\Models\NguoiDung;
 
-// ! Frontend
-Route::get('/', function () {
-    return view('frontend.index');
-})->name('home');
-Route::get('/shop', function () {
-    return view('frontend.shop');
-})->name('shop');
-Route::get('/blog', function () {
-    return view('frontend.blog');
-})->name('blog');
-Route::get('/about', function () {
-    return view('frontend.about');
-})->name('about');
-Route::get('/cart', function () {
-    return view('frontend.cart');
-})->name('cart');
-Route::get('/contact', function () {
-    return view('frontend.contact');
-})->name('contact');
+//^ Frontend
+Route::controller(HomeController::class)->group(function () {
+    Route::get('/', 'home')->name('home');
+    Route::get('/shop', 'shop')->name('shop');
+    Route::get('/blog', 'blog')->name('blog');
+    Route::get('/about', 'about')->name('about');
+    Route::get('/contact', 'contact')->name('contact');
+});
 
+
+//^ Login 
 Route::get('/backend/login', [LoginController::class, 'show_login'])
     ->name('auth.login.show');
 Route::post('/backend/login', [LoginController::class, 'authenticate'])
