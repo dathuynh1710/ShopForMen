@@ -15,6 +15,9 @@ use App\Models\NguoiDung;
 Route::controller(HomeController::class)->group(function () {
     Route::get('/', 'home')->name('home');
     Route::get('/shop', 'shop')->name('shop');
+    // hiện thị sản phẩm theo danh mục
+    Route::get('danh-muc/{id}', 'sanphamtheodanhmuc')->name('sanphamtheodanhmuc');
+    Route::get('san-pham/{id}', 'chitietsanpham')->name('chitietsanpham');
     Route::get('/blog', 'blog')->name('blog');
     Route::get('/about', 'about')->name('about');
     Route::get('/contact', 'contact')->name('contact');
