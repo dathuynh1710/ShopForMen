@@ -3,7 +3,8 @@
 
 <head>
     <meta charset="utf-8">
-    <title>ShopForMen</title>
+    {{-- <title>ShopForMen</title> --}}
+    <title>@yield('title')</title>
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -11,6 +12,7 @@
     <meta property="og:type" content="">
     <meta property="og:url" content="">
     <meta property="og:image" content="">
+    <link rel="stylesheet" href="{{ asset('fassets/fonts/fontawesome-free-6.7.2/css/all.min.css') }}" />
     <link rel="shortcut icon" type="image/x-icon" href="{{ asset('fassets/imgs/theme/favicon.ico') }}">
     <link rel="stylesheet" href="{{ asset('fassets/css/main.css') }}">
     <link rel="stylesheet" href="{{ asset('fassets/css/custom.css') }}">
@@ -48,6 +50,7 @@
     <!-- Template  JS -->
     <script src="{{ asset('fassets/js/main.js?v=3.3') }}"></script>
     <script src="{{ asset('fassets/js/shop.js?v=3.3') }}"></script>
+    @yield('custom-js')
 </body>
 
 </html>

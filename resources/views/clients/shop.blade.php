@@ -1,10 +1,12 @@
 ﻿@extends('clients/layouts/master')
+@section('title', 'Shop')
+
 @section('content')
     <main class="main">
         <div class="page-header breadcrumb-wrap">
             <div class="container">
                 <div class="breadcrumb">
-                    <a href="index.html" rel="nofollow">Home</a>
+                    <a href="{{ route('home') }}" rel="nofollow">Home</a>
                     <span></span> Shop
                 </div>
             </div>
@@ -64,11 +66,13 @@
                                 <div class="col-lg-4 col-md-4 col-6 col-sm-6">
                                     <div class="product-cart-wrap mb-30">
                                         <div class="product-img-action-wrap">
+
                                             <div class="product-img product-img-zoom">
                                                 <a href="{{ route('chitietsanpham', $sanpham->id) }}">
                                                     <img class="default-img"
                                                         src="/storage/uploads/mathang/img/{{ $sanpham->hinhanh }}"
-                                                        alt="">
+                                                        alt="Hình ảnh sản phẩm"
+                                                        style="width: 100%; height: 200px; object-fit: cover; border-radius: 5px;">
                                                 </a>
                                             </div>
                                             <div class="product-action-1">
@@ -99,7 +103,10 @@
                                             </div>
                                             <div class="product-action-1 show">
                                                 <a aria-label="Add To Cart" class="action-btn hover-up"
-                                                    href="shop-cart.php"><i class="fi-rs-shopping-bag-add"></i></a>
+                                                    href="{{ route('giohang.them', $sanpham->id) }}">
+                                                    <i class="fi-rs-shopping-bag-add"></i>
+                                                </a>
+
                                             </div>
                                         </div>
                                     </div>
@@ -131,7 +138,8 @@
                             <ul class="categories">
                                 @foreach ($dmsps as $dmsp)
                                     <li>
-                                        <a href="{{ route('sanphamtheodanhmuc', $dmsp->id) }}">{{ $dmsp->tendanhmuc }}</a>
+                                        <a
+                                            href="{{ route('sanphamtheodanhmuc', $dmsp->id) }}">{{ $dmsp->tendanhmuc }}</a>
                                     </li>
                                 @endforeach
                             </ul>
@@ -194,57 +202,7 @@
                             <a href="shop.html" class="btn btn-sm btn-default"><i class="fi-rs-filter mr-5"></i>
                                 Fillter</a>
                         </div>
-                        <!-- Product sidebar Widget -->
-                        <div class="sidebar-widget product-sidebar  mb-30 p-30 bg-grey border-radius-10">
-                            <div class="widget-header position-relative mb-20 pb-10">
-                                <h5 class="widget-title mb-10">New products</h5>
-                                <div class="bt-1 border-color-1"></div>
-                            </div>
-                            <div class="single-post clearfix">
-                                <div class="image">
-                                    <img src="assets/imgs/shop/thumbnail-3.jpg" alt="#">
-                                </div>
-                                <div class="content pt-10">
-                                    <h5><a href="{{ route('chitietsanpham', $sanpham->id) }}">Chen Cardigan</a></h5>
-                                    <p class="price mb-0 mt-5">$99.50</p>
-                                    <div class="product-rate">
-                                        <div class="product-rating" style="width:90%"></div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="single-post clearfix">
-                                <div class="image">
-                                    <img src="assets/imgs/shop/thumbnail-4.jpg" alt="#">
-                                </div>
-                                <div class="content pt-10">
-                                    <h6><a href="{{ route('chitietsanpham', $sanpham->id) }}">Chen Sweater</a></h6>
-                                    <p class="price mb-0 mt-5">$89.50</p>
-                                    <div class="product-rate">
-                                        <div class="product-rating" style="width:80%"></div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="single-post clearfix">
-                                <div class="image">
-                                    <img src="assets/imgs/shop/thumbnail-5.jpg" alt="#">
-                                </div>
-                                <div class="content pt-10">
-                                    <h6><a href="{{ route('chitietsanpham', $sanpham->id) }}">Colorful Jacket</a></h6>
-                                    <p class="price mb-0 mt-5">$25</p>
-                                    <div class="product-rate">
-                                        <div class="product-rating" style="width:60%"></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="banner-img wow fadeIn mb-45 animated d-lg-block d-none">
-                            <img src="assets/imgs/banner/banner-11.jpg" alt="">
-                            <div class="banner-text">
-                                <span>Women Zone</span>
-                                <h4>Save 17% on <br>Office Dress</h4>
-                                <a href="shop.html">Shop Now <i class="fi-rs-arrow-right"></i></a>
-                            </div>
-                        </div>
+
                     </div>
                 </div>
             </div>

@@ -1,10 +1,12 @@
 ﻿@extends('clients/layouts/master')
+@section('title', 'Contact')
+
 @section('content')
     <main class="main">
         <div class="page-header breadcrumb-wrap">
             <div class="container">
                 <div class="breadcrumb">
-                    <a href="index.html" rel="nofollow">Home</a>
+                    <a href="{{ route('home') }}" rel="nofollow">Home</a>
                     <span></span> Contact us
                 </div>
             </div>
@@ -14,8 +16,8 @@
                 <div class="row">
                     <div class="col-xl-8 col-lg-10 m-auto">
                         <div class="contact-from-area padding-20-row-col wow FadeInUp">
-                            <h3 class="mb-10 text-center">Drop Us a Line</h3>
-                            <p class="text-muted mb-30 text-center font-sm">Lorem ipsum dolor sit amet consectetur.</p>
+                            <h3 class="mb-10 text-center">Contact Us</h3>
+                            <p class="text-muted mb-30 text-center font-sm">We will get back to you asap!</p>
                             <form class="contact-form-style text-center" id="contact-form" action="#" method="post">
                                 <div class="row">
                                     <div class="col-lg-6 col-md-6">

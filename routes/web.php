@@ -5,6 +5,9 @@ use App\Http\Controllers\Backend\DanhMucController;
 use App\Http\Controllers\Backend\MatHangController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Backend\NguoiDungController;
+use App\Http\Controllers\Frontend\KhachHangController;
+
+use App\Http\Controllers\Frontend\CartController;
 use App\Http\Controllers\Frontend\HomeController;
 use App\Models\DanhMuc;
 use App\Models\MatHang;
@@ -18,11 +21,46 @@ Route::controller(HomeController::class)->group(function () {
     // hiện thị sản phẩm theo danh mục
     Route::get('danh-muc/{id}', 'sanphamtheodanhmuc')->name('sanphamtheodanhmuc');
     Route::get('san-pham/{id}', 'chitietsanpham')->name('chitietsanpham');
-    Route::get('/blog', 'blog')->name('blog');
     Route::get('/about', 'about')->name('about');
     Route::get('/contact', 'contact')->name('contact');
+
+    // Trang giỏ hàng
+    Route::get('/gio-hang', 'getGioHang')->name('giohang');
+    Route::get('/gio-hang/them/{id}', 'getGioHang_Them')->name('giohang.them');
+    Route::get('/gio-hang/xoa/{row_id}', 'getGioHang_Xoa')->name('giohang.xoa');
+    Route::get('/gio-hang/giam/{row_id}', 'getGioHang_Giam')->name('giohang.giam');
+    Route::get('/gio-hang/tang/{row_id}', 'getGioHang_Tang')->name('giohang.tang');
+    Route::post('/gio-hang/cap-nhat', 'postGioHang_CapNhat')->name('giohang.capnhat');
 });
 
+// Trang khách hàng
+Route::get('/khach-hang/dang-ky', [HomeController::class, 'getDangKy'])->name('user.dangky');
+Route::get('/khach-hang/dang-nhap', [HomeController::class, 'getDangNhap'])->name('user.dangnhap');
+
+
+// Trang tài khoản khách hàng
+Route::prefix('khach-hang')->name('user.')->group(function () {
+    // Trang chủ
+    Route::get('/', [KhachHangController::class, 'getHome'])->name('home');
+    Route::get('/home', [KhachHangController::class, 'getHome'])->name('home');
+
+    // Đặt hàng
+    Route::get('/dat-hang', [KhachHangController::class, 'getDatHang'])->name('dathang');
+    Route::post('/dat-hang', [KhachHangController::class, 'postDatHang'])->name('dathang');
+    Route::get('/dat-hang-thanh-cong', [KhachHangController::class, 'getDatHangThanhCong'])->name('dathangthanhcong');
+
+    // Xem và cập nhật trạng thái đơn hàng
+    Route::get('/don-hang', [KhachHangController::class, 'getDonHang'])->name('donhang');
+    Route::get('/don-hang/{id}', [KhachHangController::class, 'getDonHang'])->name('donhang.chitiet');
+    Route::post('/don-hang/{id}', [KhachHangController::class, 'postDonHang'])->name('donhang.chitiet');
+
+    // Cập nhật thông tin tài khoản
+    Route::get('/ho-so-ca-nhan', [KhachHangController::class, 'getHoSoCaNhan'])->name('hosocanhan');
+    Route::post('/ho-so-ca-nhan', [KhachHangController::class, 'postHoSoCaNhan'])->name('hosocanhan');
+
+    // Đăng xuất
+    Route::post('/dang-xuat', [KhachHangController::class, 'postDangXuat'])->name('dangxuat');
+});
 
 //^ Login 
 Route::get('/backend/login', [LoginController::class, 'show_login'])

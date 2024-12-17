@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Models\DanhMuc;
 use App\Models\MatHang;
 use Illuminate\Http\Request;
+use Gloudemans\Shoppingcart\Facades\Cart;
+use Socialite;
 
 class HomeController extends Controller
 {
@@ -44,25 +46,14 @@ class HomeController extends Controller
 
     public function chitietsanpham($id)
     {
-        // Lấy sản phẩm theo ID
-        $sanphams = MatHang::findOrFail($id);
-
-        // Lấy danh mục của sản phẩm
-        $danhmuc = $sanphams->danhmuc;
-
-        // Lấy các sản phẩm liên quan trong cùng danh mục
-        $sanphamLienQuan = MatHang::where('danhmuc_id', $sanphams->danhmuc_id)
+        $sanpham = MatHang::where('id', '=', $id)->first();
+        // $sanphamlienquan = MatHang::where('danhmuc_id', $sanpham->danhmuc_id)->get();
+        $sanphamlienquan = MatHang::where('danhmuc_id', $sanpham->danhmuc_id)
             ->where('id', '!=', $id) // Loại trừ sản phẩm hiện tại
             ->orderBy('created_at', 'DESC')
             ->take(4) // Giới hạn số lượng sản phẩm liên quan
             ->get();
-
-        // Trả dữ liệu về view
-        return view('clients.sanpham', [
-            'sanphams' => $sanphams,
-            'danhmuc' => $danhmuc,
-            'sanphamLienQuan' => $sanphamLienQuan,
-        ]);
+        return view('clients/sanpham', ['sanpham' => $sanpham, 'sanphamlienquan' => $sanphamlienquan]);
     }
 
     public function blog()
@@ -76,5 +67,71 @@ class HomeController extends Controller
     public function contact()
     {
         return view('clients.contact');
+    }
+    public function getGioHang()
+    {
+        if (Cart::count() > 0)
+            return view('clients.cart');
+        else
+            return view('clients.emptycart');
+    }
+
+    public function getGioHang_Them($id = 0)
+    {
+        $sanpham = MatHang::find($id);
+
+        Cart::add([
+            'id' => $sanpham->id,
+            'name' => $sanpham->tenmathang,
+            'price' => $sanpham->giaban,
+            'qty' => 1,
+            'weight' => 0,
+            'options' => [
+                'image' => $sanpham->hinhanh
+            ]
+        ]);
+
+        return redirect()->route('shop');
+    }
+
+    public function getGioHang_Xoa($row_id)
+    {
+        Cart::remove($row_id);
+        return redirect()->route('giohang');
+    }
+
+    public function getGioHang_Giam($row_id)
+    {
+        $row = Cart::get($row_id);
+        // Nếu số lượng là 1 thì không giảm được nữa
+        if ($row->qty > 1) {
+            Cart::update($row_id, $row->qty - 1);
+        }
+        return redirect()->route('giohang');
+    }
+
+    public function getGioHang_Tang($row_id)
+    {
+        $row = Cart::get($row_id);
+
+        // Không được tăng vượt quá 10 sản phẩm
+        if ($row->qty < 10) {
+            Cart::update($row_id, $row->qty + 1);
+        }
+
+        return redirect()->route('giohang');
+    }
+
+    public function postGioHang_CapNhat(Request $request)
+    {
+        foreach ($request->qty as $row_id => $quantity) {
+            if ($quantity <= 0)
+                Cart::update($row_id, 1);
+            else if ($quantity > 10)
+                Cart::update($row_id, 10);
+            else
+                Cart::update($row_id, $quantity);
+        }
+        return redirect()->route('giohang');
     }
 }
