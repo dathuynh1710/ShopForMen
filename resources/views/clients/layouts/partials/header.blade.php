@@ -35,7 +35,8 @@
                 <div class="col-xl-3 col-lg-4">
                     <div class="header-info header-info-right">
                         <ul>
-                            <li><i class="fi-rs-key"></i><a href="login.html">Log In </a> / <a href="register.html">Sign
+                            <li><i class="fi-rs-key"></i><a href="{{ route('user.dangnhap') }}">Log In </a> / <a
+                                    href="{{ route('user.dangky') }}">Sign
                                     Up</a></li>
                         </ul>
                     </div>
@@ -47,7 +48,8 @@
         <div class="container">
             <div class="header-wrap">
                 <div class="logo logo-width-1">
-                    <a href="index.html"><img src="{{ asset('fassets/imgs/logo/logo.png') }}" alt="logo"></a>
+                    <a href="{{ route('home') }}"><img src="{{ asset('fassets/imgs/logo/logo.png') }}"
+                            alt="logo"></a>
                 </div>
                 <div class="header-right">
                     <div class="search-style-1">
@@ -120,7 +122,8 @@
         <div class="container">
             <div class="header-wrap header-space-between position-relative">
                 <div class="logo logo-width-1 d-block d-lg-none">
-                    <a href="index.html"><img src="{{ asset('fassets/imgs/logo/logo.png') }}" alt="logo"></a>
+                    <a href="{{ route('home') }}"><img src="{{ asset('fassets/imgs/logo/logo.png') }}"
+                            alt="logo"></a>
                 </div>
                 <div class="header-nav d-none d-lg-flex">
                     <div class="main-categori-wrap d-none d-lg-block">

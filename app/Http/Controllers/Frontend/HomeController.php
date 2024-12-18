@@ -13,14 +13,29 @@ class HomeController extends Controller
 {
     public function home()
     {
-        return view('clients.index');
+        $dmsps = DanhMuc::all();
+        // danh sách sản phẩm nổi bật
+        $sanphams = MatHang::where('noibat', 1)->orderBy('created_at', 'DESC')->paginate(16);
+        // danh sách sản phẩm mới
+        $sanphamnew = MatHang::orderBy('created_at', 'DESC')->take(8)->get();
+        // Sắp xếp số lượng tồn từ thấp đến cao
+        $sanphamcosptonmin = MatHang::orderBy('soluongton', 'ASC')->take(8)->get();
+        // đếm số lượng sản phẩm
+        $totalMH = MatHang::count();
+        return view('clients.home.index', [
+            'sanphams' => $sanphams,
+            'totalMH' => $totalMH,
+            'dmsps' => $dmsps,
+            'sanphamnew' => $sanphamnew,
+            'sanphamcosptonmin' => $sanphamcosptonmin,
+        ]);
     }
     public function shop()
     {
         $dmsps = DanhMuc::all();
         $sanphams = MatHang::orderBy('created_at', 'DESC')->paginate(16);
         $totalMH = MatHang::count();
-        return view('clients.shop', [
+        return view('clients.home.shop', [
             'sanphams' => $sanphams,
             'totalMH' => $totalMH,
             'dmsps' => $dmsps
@@ -36,7 +51,7 @@ class HomeController extends Controller
             ->paginate(16);
         $totalMH = $sanphams->total();
 
-        return view('clients.shop', [
+        return view('clients.home.shop', [
             'sanphams' => $sanphams,
             'totalMH' => $totalMH,
             'danhmuc' => $danhmuc,
@@ -53,27 +68,24 @@ class HomeController extends Controller
             ->orderBy('created_at', 'DESC')
             ->take(4) // Giới hạn số lượng sản phẩm liên quan
             ->get();
-        return view('clients/sanpham', ['sanpham' => $sanpham, 'sanphamlienquan' => $sanphamlienquan]);
+        return view('clients.home.sanpham', ['sanpham' => $sanpham, 'sanphamlienquan' => $sanphamlienquan]);
     }
 
-    public function blog()
-    {
-        return view('clients.blog');
-    }
+
     public function about()
     {
-        return view('clients.about');
+        return view('clients.home.about');
     }
     public function contact()
     {
-        return view('clients.contact');
+        return view('clients.home.contact');
     }
     public function getGioHang()
     {
         if (Cart::count() > 0)
-            return view('clients.cart');
+            return view('clients.cart.cart');
         else
-            return view('clients.emptycart');
+            return view('clients.cart.emptycart');
     }
 
     public function getGioHang_Them($id = 0)

@@ -87,29 +87,13 @@
                                                         src="/storage/uploads/mathang/img/{{ $value->options->image }}"
                                                         alt="#"></td>
                                                 <td>
-                                                    <h5><a href="product-details.html">{{ $value->name }}</a></h5>
+                                                    <h5><a href="#!">{{ $value->name }}</a></h5>
                                                     <span class="product-qty">x {{ $value->qty }}</span>
-
                                                 </td>
-
                                                 <td><span
                                                         class="text-accent me-2">{{ number_format($value->price, 0, ',', '.') }}<small>đ</small></span>
                                                 </td>
                                             </tr>
-                                            {{-- <div class="d-flex align-items-center pb-2 border-bottom">
-                                                <a class="d-block flex-shrink-0" href="#">
-                                                    <img src="{{ env('APP_URL') . '/storage/app/' . $value->options->image }}"
-                                                        width="64" />
-                                                </a>
-                                                <div class="ps-2">
-                                                    <h6 class="widget-product-title">{{ $value->name }}</h6>
-                                                    <div class="widget-product-meta">
-                                                        <span
-                                                            class="text-accent me-2">{{ number_format($value->price, 0, ',', '.') }}<small>đ</small></span>
-                                                        <span class="text-muted">x {{ $value->qty }}</span>
-                                                    </div>
-                                                </div>
-                                            </div> --}}
                                         @endforeach
 
                                         <tr>
@@ -122,8 +106,9 @@
                                             </th>
                                             <td colspan="2">
                                                 <em><span>{{ number_format(config('cart.shipping_fee'), 0, ',', '.') }}
-                                                        VND</span>
-                                                </em></td>
+                                                    </span>
+                                                </em>
+                                            </td>
                                         </tr>
                                         <tr>
                                             <th>Thuế GTGT</th>
@@ -131,8 +116,14 @@
                                         </tr>
                                         <tr>
                                             <th>Tổng tiền</th>
-                                            <td colspan="2" class="product-subtotal"><span
-                                                    class="font-xl text-brand fw-900">{{ Cart::total() }}</span></td>
+                                            <td colspan="2" class="product-subtotal">
+                                                @php
+                                                    $total = Cart::total(0, '', '') + config('cart.shipping_fee');
+                                                @endphp
+                                                <span
+                                                    class="font-xl text-brand fw-900">{{ number_format($total, 0, ',', '.') }}
+                                                    đ</span>
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>
