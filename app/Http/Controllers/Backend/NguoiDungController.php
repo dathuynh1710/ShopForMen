@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Backend;
 
 use Illuminate\Support\Facades\File;
+use Illuminate\Auth\Events\Validated;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;

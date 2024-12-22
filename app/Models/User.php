@@ -21,6 +21,7 @@ class User extends Authenticatable
         'email',
         'sodienthoai',
         'hoten',
+        'password',
         'loai',
         'trangthai',
         'hinhanh',

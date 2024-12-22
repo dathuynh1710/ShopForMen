@@ -1,6 +1,9 @@
-@media (max-width:420px)
-{
-	.product-grid-4 .col-12{
-    width:50% !important;
-  }
+@media (max-width: 420px) {
+    .product-grid-4 .col-12 {
+        width: 50% !important;
+    }
+}
+
+a.text-view {
+    color: #393636;
 }

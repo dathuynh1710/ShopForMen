@@ -17,7 +17,7 @@ return new class extends Migration
             $table->bigInteger('diachi_id')->unsigned();
             $table->dateTime('ngay');
             $table->decimal('tongtien', 19, 0)->default(0);
-            $table->string('trangthai');
+            $table->string('trangthai_id');
             $table->timestamps();
 
             $table->foreign('nguoidung_id')->references('id')->on('users');

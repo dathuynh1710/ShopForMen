@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\ChiTietDonHang;
 use App\Models\User;
+use App\Models\TrangThai;
 
 class DonHang extends Model
 {
@@ -45,5 +46,10 @@ class DonHang extends Model
             'donhang_id',
             'id'
         );
+    }
+
+    public function TrangThai()
+    {
+        return $this->belongsTo(TrangThai::class, 'trangthai_id', 'id');
     }
 }

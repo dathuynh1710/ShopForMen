@@ -32,7 +32,7 @@
                 <div class="col-lg-4 col-md-6">
                     <div class="widget-about font-md mb-md-5 mb-lg-0">
                         <div class="logo logo-width-1 wow fadeIn animated">
-                            <a href="index.html"><img src="{{ asset('fassets/imgs/logo/logo.png') }}"
+                            <a href="{{ route('home') }}"><img src="{{ asset('fassets/imgs/logo/logo1.png') }}"
                                     alt="logo"></a>
                         </div>
                         <h5 class="mt-20 mb-10 fw-600 text-grey-4 wow fadeIn animated">Contact</h5>
@@ -73,7 +73,7 @@
                 <div class="col-lg-2  col-md-3">
                     <h5 class="widget-title wow fadeIn animated">My Account</h5>
                     <ul class="footer-list wow fadeIn animated">
-                        <li><a href="my-account.html">My Account</a></li>
+                        <li><a href="#!">My Account</a></li>
                         <li><a href="#">View Cart</a></li>
                         <li><a href="#">My Wishlist</a></li>
                         <li><a href="#">Track My Order</a></li>

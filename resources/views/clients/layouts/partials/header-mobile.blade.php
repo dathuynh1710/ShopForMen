@@ -2,7 +2,7 @@
     <div class="mobile-header-wrapper-inner">
         <div class="mobile-header-top">
             <div class="mobile-header-logo">
-                <a href="{{ route('home') }}"><img src="{{ asset('fassets/imgs/logo/logo.png') }}" alt="logo"></a>
+                <a href="{{ route('home') }}"><img src="{{ asset('fassets/imgs/logo/logo1.png') }}" alt="logo"></a>
             </div>
             <div class="mobile-menu-close close-style-wrap close-style-position-inherit">
                 <button class="close-style search-close">
@@ -25,16 +25,7 @@
                     </a>
                     <div class="categori-dropdown-wrap categori-dropdown-active-small">
                         <ul>
-                            <li><a href="shop.html"><i class="surfsidemedia-font-dress"></i>Women's Clothing</a>
-                            </li>
-                            <li><a href="shop.html"><i class="surfsidemedia-font-tshirt"></i>Men's Clothing</a>
-                            </li>
-                            <li> <a href="shop.html"><i class="surfsidemedia-font-smartphone"></i> Cellphones</a>
-                            </li>
-                            <li><a href="shop.html"><i class="surfsidemedia-font-desktop"></i>Computer &
-                                    Office</a></li>
-                            <li><a href="shop.html"><i class="surfsidemedia-font-cpu"></i>Consumer Electronics</a>
-                            </li>
+
                             <li><a href="shop.html"><i class="surfsidemedia-font-home"></i>Home & Garden</a></li>
                             <li><a href="shop.html"><i class="surfsidemedia-font-high-heels"></i>Shoes</a></li>
                             <li><a href="shop.html"><i class="surfsidemedia-font-teddy-bear"></i>Mother & Kids</a>
@@ -52,38 +43,9 @@
                         </li>
                         <li class="menu-item-has-children"><span class="menu-expand"></span><a href="#">Our
                                 Collections</a>
-                            <ul class="dropdown">
-                                <li class="menu-item-has-children"><span class="menu-expand"></span><a
-                                        href="#">Women's Fashion</a>
-                                    <ul class="dropdown">
-                                        <li><a href="product-details.html">Dresses</a></li>
-                                        <li><a href="product-details.html">Blouses & Shirts</a></li>
-                                        <li><a href="product-details.html">Hoodies & Sweatshirts</a></li>
-                                        <li><a href="product-details.html">Women's Sets</a></li>
-                                    </ul>
-                                </li>
-                                <li class="menu-item-has-children"><span class="menu-expand"></span><a
-                                        href="#">Men's Fashion</a>
-                                    <ul class="dropdown">
-                                        <li><a href="product-details.html">Jackets</a></li>
-                                        <li><a href="product-details.html">Casual Faux Leather</a></li>
-                                        <li><a href="product-details.html">Genuine Leather</a></li>
-                                    </ul>
-                                </li>
-                                <li class="menu-item-has-children"><span class="menu-expand"></span><a
-                                        href="#">Technology</a>
-                                    <ul class="dropdown">
-                                        <li><a href="product-details.html">Gaming Laptops</a></li>
-                                        <li><a href="product-details.html">Ultraslim Laptops</a></li>
-                                        <li><a href="product-details.html">Tablets</a></li>
-                                        <li><a href="product-details.html">Laptop Accessories</a></li>
-                                        <li><a href="product-details.html">Tablet Accessories</a></li>
-                                    </ul>
-                                </li>
-                            </ul>
+
                         </li>
-                        <li class="menu-item-has-children"><span class="menu-expand"></span><a href="blog.html">Blog</a>
-                        </li>
+
                         <li class="menu-item-has-children"><span class="menu-expand"></span><a
                                 href="#">Language</a>
                             <ul class="dropdown">
@@ -99,16 +61,16 @@
             </div>
             <div class="mobile-header-info-wrap mobile-header-border">
                 <div class="single-mobile-header-info mt-30">
-                    <a href="contact.html"> Our location </a>
+                    <a href="{{ route('contact') }}"> Our location </a>
                 </div>
                 <div class="single-mobile-header-info">
-                    <a href="login.html">Log In </a>
+                    <a href="{ route('user.dangnhap') }}">Log In </a>
                 </div>
                 <div class="single-mobile-header-info">
-                    <a href="register.html">Sign Up</a>
+                    <a href="{{ route('user.dangky') }}">Sign Up</a>
                 </div>
                 <div class="single-mobile-header-info">
-                    <a href="#">(+1) 0000-000-000 </a>
+                    <a href="#">(+84) 123-456-789 </a>
                 </div>
             </div>
             <div class="mobile-social-icon">

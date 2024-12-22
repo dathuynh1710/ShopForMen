@@ -130,7 +130,7 @@
                                                         style="width: 100%; height: 200px; object-fit: cover; border-radius: 5px;">
                                                 </a>
                                             </div>
-                                            <div class="product-action-1">
+                                            {{-- <div class="product-action-1">
                                                 <a aria-label="Quick view" class="action-btn hover-up"
                                                     data-bs-toggle="modal" data-bs-target="#quickViewModal"><i
                                                         class="fi-rs-eye"></i></a>
@@ -138,7 +138,7 @@
                                                     href="wishlist.php"><i class="fi-rs-heart"></i></a>
                                                 <a aria-label="Compare" class="action-btn hover-up" href="compare.php"><i
                                                         class="fi-rs-shuffle"></i></a>
-                                            </div>
+                                            </div> --}}
                                             <div class="product-badges product-badges-position product-badges-mrg">
                                                 <span class="hot">Hot</span>
                                             </div>
@@ -190,7 +190,7 @@
 
                                                 </a>
                                             </div>
-                                            <div class="product-action-1">
+                                            {{-- <div class="product-action-1">
                                                 <a aria-label="Quick view" class="action-btn hover-up"
                                                     data-bs-toggle="modal" data-bs-target="#quickViewModal"><i
                                                         class="fi-rs-eye"></i></a>
@@ -198,7 +198,7 @@
                                                     href="wishlist.php"><i class="fi-rs-heart"></i></a>
                                                 <a aria-label="Compare" class="action-btn hover-up" href="compare.php"><i
                                                         class="fi-rs-shuffle"></i></a>
-                                            </div>
+                                            </div> --}}
                                             <div class="product-badges product-badges-position product-badges-mrg">
                                                 @if ($sanpham->noibat)
                                                     <span class="hot">Hot</span>
@@ -252,7 +252,7 @@
                                                         style="width: 100%; height: 200px; object-fit: cover; border-radius: 5px;">
                                                 </a>
                                             </div>
-                                            <div class="product-action-1">
+                                            {{-- <div class="product-action-1">
                                                 <a aria-label="Quick view" class="action-btn hover-up"
                                                     data-bs-toggle="modal" data-bs-target="#quickViewModal"><i
                                                         class="fi-rs-eye"></i></a>
@@ -260,7 +260,7 @@
                                                     href="wishlist.php"><i class="fi-rs-heart"></i></a>
                                                 <a aria-label="Compare" class="action-btn hover-up" href="compare.php"><i
                                                         class="fi-rs-shuffle"></i></a>
-                                            </div>
+                                            </div> --}}
                                             <div class="product-badges product-badges-position product-badges-mrg">
                                                 <span class="hot">Hot</span>
                                             </div>
@@ -310,7 +310,7 @@
                     <img src="{{ asset('') }}fassets/imgs/banner/banner4.png" alt="">
                     <div class="banner-text d-md-block d-none">
                         <h4 class="mb-15 mt-40 text-brand">Chế độ bảo hành</h4>
-                        <h1 class="fw-600 mb-20">Shopformen <br>Đối tác cung cấp được ủy quyền</h1>
+                        <h1 class="fw-600 mb-20">Shopformen. <br>Đối tác cung cấp được ủy quyền</h1>
                         <a href="{{ route('shop') }}" class="btn">Tìm hiểu thêm <i class="fi-rs-arrow-right"></i></a>
                     </div>
                 </div>
@@ -319,67 +319,106 @@
         <section class="popular-categories section-padding mt-15 mb-25">
             <div class="container wow fadeIn animated">
                 <h3 class="section-title mb-20">Danh mục <span>Phổ biến</span> </h3>
+
                 <div class="carausel-6-columns-cover position-relative">
                     <div class="slider-arrow slider-arrow-2 carausel-6-columns-arrow" id="carausel-6-columns-arrows">
                     </div>
-                    <div class="carausel-6-columns" id="carausel-6-columns">
-                        <div class="card-1">
-                            <figure class=" img-hover-scale overflow-hidden">
-                                <a href="{{ route('shop') }}"><img
-                                        src="{{ asset('/storage\uploads\danhmuc\img\noicomdien.jpg') }}"
-                                        alt=""></a>
+                    <div class="carausel-6-columns" id="carausel-6-columns"
+                        style="display: flex; flex-wrap: wrap; gap: 16px;">
+                        <div class="card-1"
+                            style="flex: 1 1 calc(100% / 6 - 16px); display: flex; flex-direction: column; align-items: center; justify-content: space-between; background-color: #fff; border: 1px solid #ddd; padding: 16px; box-sizing: border-box; height: 100%;">
+                            <figure
+                                style="width: 100%; height: 200px; display: flex; align-items: center; justify-content: center; overflow: hidden; margin: 0 0 16px 0;">
+                                <a href="{{ route('shop') }}">
+                                    <img src="{{ asset('/storage/uploads/danhmuc/img/noicomdien.jpg') }}" alt=""
+                                        style="width: auto; height: 100%; object-fit: cover;">
+                                </a>
                             </figure>
-                            <h5><a href="{{ route('shop') }}">Nồi cơm điện</a></h5>
+                            <h5 style="margin: 0; font-size: 16px; text-align: center; color: #333;">
+                                <a href="{{ route('shop') }}">Nồi cơm điện</a>
+                            </h5>
                         </div>
-                        <div class="card-1">
-                            <figure class=" img-hover-scale overflow-hidden">
-                                <a href="{{ route('shop') }}"> <img
-                                        src="{{ asset('/storage/uploads/danhmuc/img/noichien.png') }}"
-                                        alt=""></a>
+                        <div class="card-1"
+                            style="flex: 1 1 calc(100% / 6 - 16px); display: flex; flex-direction: column; align-items: center; justify-content: space-between; background-color: #fff; border: 1px solid #ddd; padding: 16px; box-sizing: border-box; height: 100%;">
+                            <figure
+                                style="width: 100%; height: 200px; display: flex; align-items: center; justify-content: center; overflow: hidden; margin: 0 0 16px 0;">
+                                <a href="{{ route('shop') }}">
+                                    <img src="{{ asset('/storage/uploads/danhmuc/img/noichien.png') }}" alt=""
+                                        style="width: auto; height: 100%; object-fit: cover;">
+                                </a>
                             </figure>
-                            <h5><a href="{{ route('shop') }}">Nồi chiên</a></h5>
+                            <h5 style="margin: 0; font-size: 16px; text-align: center; color: #333;">
+                                <a href="{{ route('shop') }}">Nồi chiên</a>
+                            </h5>
                         </div>
-                        <div class="card-1">
-                            <figure class=" img-hover-scale overflow-hidden">
-                                <a href="{{ route('shop') }}"><img
-                                        src="{{ asset('/storage/uploads/danhmuc/img/maylocnuoc.png') }}"
-                                        alt=""></a>
+                        <div class="card-1"
+                            style="flex: 1 1 calc(100% / 6 - 16px); display: flex; flex-direction: column; align-items: center; justify-content: space-between; background-color: #fff; border: 1px solid #ddd; padding: 16px; box-sizing: border-box; height: 100%;">
+                            <figure
+                                style="width: 100%; height: 200px; display: flex; align-items: center; justify-content: center; overflow: hidden; margin: 0 0 16px 0;">
+                                <a href="{{ route('shop') }}">
+                                    <img src="{{ asset('/storage/uploads/danhmuc/img/maylocnuoc.png') }}" alt=""
+                                        style="width: auto; height: 100%; object-fit: cover;">
+                                </a>
                             </figure>
-                            <h5><a href="{{ route('shop') }}">Máy lọc nước</a></h5>
+                            <h5 style="margin: 0; font-size: 16px; text-align: center; color: #333;">
+                                <a href="{{ route('shop') }}">Máy lọc nước</a>
+                            </h5>
                         </div>
-                        <div class="card-1">
-                            <figure class=" img-hover-scale overflow-hidden">
-                                <a href="{{ route('shop') }}"><img
-                                        src="{{ asset('/storage/uploads/danhmuc/img/maylockhongkhi.jpg') }}"
-                                        alt=""></a>
+                        <div class="card-1"
+                            style="flex: 1 1 calc(100% / 6 - 16px); display: flex; flex-direction: column; align-items: center; justify-content: space-between; background-color: #fff; border: 1px solid #ddd; padding: 16px; box-sizing: border-box; height: 100%;">
+                            <figure
+                                style="width: 100%; height: 200px; display: flex; align-items: center; justify-content: center; overflow: hidden; margin: 0 0 16px 0;">
+                                <a href="{{ route('shop') }}">
+                                    <img src="{{ asset('/storage/uploads/danhmuc/img/maylockhongkhi.jpg') }}"
+                                        alt="" style="width: auto; height: 100%; object-fit: cover;">
+                                </a>
                             </figure>
-                            <h5><a href="{{ route('shop') }}">Máy lọc KK</a></h5>
+                            <h5 style="margin: 0; font-size: 16px; text-align: center; color: #333;">
+                                <a href="{{ route('shop') }}">Máy lọc KK</a>
+                            </h5>
                         </div>
-                        <div class="card-1">
-                            <figure class=" img-hover-scale overflow-hidden">
-                                <a href="{{ route('shop') }}"><img
-                                        src="{{ asset('/storage/uploads/danhmuc/img/mayhutbui.jpg') }}"
-                                        alt=""></a>
+                        <div class="card-1"
+                            style="flex: 1 1 calc(100% / 6 - 16px); display: flex; flex-direction: column; align-items: center; justify-content: space-between; background-color: #fff; border: 1px solid #ddd; padding: 16px; box-sizing: border-box; height: 100%;">
+                            <figure
+                                style="width: 100%; height: 200px; display: flex; align-items: center; justify-content: center; overflow: hidden; margin: 0 0 16px 0;">
+                                <a href="{{ route('shop') }}">
+                                    <img src="{{ asset('/storage/uploads/danhmuc/img/mayhutbui.jpg') }}" alt=""
+                                        style="width: auto; height: 100%; object-fit: cover;">
+                                </a>
                             </figure>
-                            <h5><a href="{{ route('shop') }}">Máy hút bụi</a></h5>
+                            <h5 style="margin: 0; font-size: 16px; text-align: center; color: #333;">
+                                <a href="{{ route('shop') }}">Máy hút bụi</a>
+                            </h5>
                         </div>
-                        <div class="card-1">
-                            <figure class=" img-hover-scale overflow-hidden">
-                                <a href="{{ route('shop') }}"><img
-                                        src="{{ asset('/storage/uploads/danhmuc/img/mayeptraicay.jpg') }}"
-                                        alt=""></a>
+                        <div class="card-1"
+                            style="flex: 1 1 calc(100% / 6 - 16px); display: flex; flex-direction: column; align-items: center; justify-content: space-between; background-color: #fff; border: 1px solid #ddd; padding: 16px; box-sizing: border-box; height: 100%;">
+                            <figure
+                                style="width: 100%; height: 200px; display: flex; align-items: center; justify-content: center; overflow: hidden; margin: 0 0 16px 0;">
+                                <a href="{{ route('shop') }}">
+                                    <img src="{{ asset('/storage/uploads/danhmuc/img/mayeptraicay.jpg') }}"
+                                        alt="" style="width: auto; height: 100%; object-fit: cover;">
+                                </a>
                             </figure>
-                            <h5><a href="{{ route('shop') }}">Máy ép</a></h5>
+                            <h5 style="margin: 0; font-size: 16px; text-align: center; color: #333;">
+                                <a href="{{ route('shop') }}">Máy ép</a>
+                            </h5>
                         </div>
-                        <div class="card-1">
-                            <figure class=" img-hover-scale overflow-hidden">
-                                <a href="{{ route('shop') }}"><img
-                                        src="{{ asset('/storage/uploads/danhmuc/img/bepdien.jpg') }}" alt=""></a>
+                        <div class="card-1"
+                            style="flex: 1 1 calc(100% / 6 - 16px); display: flex; flex-direction: column; align-items: center; justify-content: space-between; background-color: #fff; border: 1px solid #ddd; padding: 16px; box-sizing: border-box; height: 100%;">
+                            <figure
+                                style="width: 100%; height: 200px; display: flex; align-items: center; justify-content: center; overflow: hidden; margin: 0 0 16px 0;">
+                                <a href="{{ route('shop') }}">
+                                    <img src="{{ asset('/storage/uploads/danhmuc/img/bepdien.jpg') }}" alt=""
+                                        style="width: auto; height: 100%; object-fit: cover;">
+                                </a>
                             </figure>
-                            <h5><a href="{{ route('shop') }}">Bếp điện</a></h5>
+                            <h5 style="margin: 0; font-size: 16px; text-align: center; color: #333;">
+                                <a href="{{ route('shop') }}">Bếp điện</a>
+                            </h5>
                         </div>
                     </div>
                 </div>
+
             </div>
 
         </section>
@@ -437,7 +476,7 @@
                                                 style="width: 100%; height: 200px; object-fit: cover; border-radius: 5px;">
                                         </a>
                                     </div>
-                                    <div class="product-action-1">
+                                    {{-- <div class="product-action-1">
                                         <a aria-label="Quick view" class="action-btn small hover-up"
                                             data-bs-toggle="modal" data-bs-target="#quickViewModal">
                                             <i class="fi-rs-eye"></i></a>
@@ -445,7 +484,7 @@
                                             href="wishlist.php" tabindex="0"><i class="fi-rs-heart"></i></a>
                                         <a aria-label="Compare" class="action-btn small hover-up" href="compare.php"
                                             tabindex="0"><i class="fi-rs-shuffle"></i></a>
-                                    </div>
+                                    </div> --}}
                                     <div class="product-badges product-badges-position product-badges-mrg">
                                         <span class="hot">Hot</span>
                                     </div>

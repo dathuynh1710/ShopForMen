@@ -117,21 +117,29 @@
                                                 </tr>
                                                 <tr>
                                                     <td class="cart_total_label">Tổng cộng</td>
-                                                    <td class="cart_total_amount"><strong><span
-                                                                class="font-xl fw-900 text-brand"> {{ Cart::priceTotal() }}
-                                                            </span></strong>
+                                                    <td class="cart_total_amount">
+                                                        <strong>
+                                                            @php
+                                                                $total =
+                                                                    Cart::priceTotal(0, '', '') +
+                                                                    config('cart.shipping_fee');
+                                                            @endphp
+                                                            <span
+                                                                class="font-xl text-brand fw-900">{{ number_format($total, 0, ',', '.') }}
+                                                                đ</span>
+                                                        </strong>
                                                     </td>
                                                 </tr>
                                             </tbody>
                                         </table>
                                     </div>
                                     <a " href="{{ route('user.dathang') }}" class="btn "> <i class="fi-rs-box-alt mr-10"></i> Tiến hành                                                                                                         thanh toán</a>
-                                                                                                                                                        </div>
-                                                                                                                                                    </div>
-                                                                                                                                                </div>
-                                                                                                                                            </div>
-                                                                                                                                        </div>
-                                                                                                                                    </div>
-                                                                                                                            </section>
-                                                                                                                    </main>
+                                                                                                                                                                                </div>
+                                                                                                                                                                            </div>
+                                                                                                                                                                        </div>
+                                                                                                                                                                    </div>
+                                                                                                                                                                </div>
+                                                                                                                                                            </div>
+                                                                                                                                                    </section>
+                                                                                                                                            </main>
 @endsection

@@ -10,6 +10,7 @@ use Database\Seeders\ThuongHieuSeeder;
 use Database\Seeders\UserSeeder;
 use Database\Seeders\MatHangSeeder;
 use Database\Seeders\HinhAnhSanPhamSeeder;
+use Database\Seeders\DiaChiSeeder;
 
 class DatabaseSeeder extends Seeder
 {
@@ -23,5 +24,6 @@ class DatabaseSeeder extends Seeder
         $this->call([UserSeeder::class]);
         $this->call([MatHangSeeder::class]);
         $this->call([HinhAnhSanPhamSeeder::class]);
+        $this->call([DiaChiSeeder::class]);
     }
 }

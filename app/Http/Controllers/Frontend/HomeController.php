@@ -2,18 +2,24 @@
 
 namespace App\Http\Controllers\Frontend;
 
+use Illuminate\Auth\Events\Validated;
+
 use App\Http\Controllers\Controller;
 use App\Models\DanhMuc;
 use App\Models\MatHang;
+use App\Models\ThuongHieu;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Gloudemans\Shoppingcart\Facades\Cart;
 use Socialite;
+use Hash;
 
 class HomeController extends Controller
 {
     public function home()
     {
         $dmsps = DanhMuc::all();
+        $thsps = ThuongHieu::all();
         // danh sách sản phẩm nổi bật
         $sanphams = MatHang::where('noibat', 1)->orderBy('created_at', 'DESC')->paginate(16);
         // danh sách sản phẩm mới
@@ -28,18 +34,16 @@ class HomeController extends Controller
             'dmsps' => $dmsps,
             'sanphamnew' => $sanphamnew,
             'sanphamcosptonmin' => $sanphamcosptonmin,
+            'thsps' => $thsps,
         ]);
     }
-    public function shop()
+    public function shop(Request $request)
     {
         $dmsps = DanhMuc::all();
-        $sanphams = MatHang::orderBy('created_at', 'DESC')->paginate(16);
+        $thsps = ThuongHieu::all();
+        $sanphams = MatHang::orderBy('created_at', 'DESC')->paginate(3);
         $totalMH = MatHang::count();
-        return view('clients.home.shop', [
-            'sanphams' => $sanphams,
-            'totalMH' => $totalMH,
-            'dmsps' => $dmsps
-        ]);
+        return view('clients.home.shop', compact('sanphams', 'totalMH', 'dmsps', 'thsps'));
     }
 
     public function sanphamtheodanhmuc($id)
@@ -56,6 +60,23 @@ class HomeController extends Controller
             'totalMH' => $totalMH,
             'danhmuc' => $danhmuc,
             'dmsps' => $dmsps,
+        ]);
+    }
+
+    public function sanphamtheothuonghieu($id)
+    {
+        $thuonghieu = ThuongHieu::findOrFail($id);
+        $thsps = ThuongHieu::all();
+        $sanphams = MatHang::where('thuonghieu_id', $id)
+            ->orderBy('created_at', 'DESC')
+            ->paginate(16);
+        $totalMH = $sanphams->total();
+
+        return view('clients.home.shop', [
+            'sanphams' => $sanphams,
+            'totalMH' => $totalMH,
+            'thuonghieu' => $thuonghieu,
+            'thsps' => $thsps,
         ]);
     }
 
@@ -80,6 +101,33 @@ class HomeController extends Controller
     {
         return view('clients.home.contact');
     }
+
+    // Trang đăng ký dành cho khách hàng
+    public function getDangKy()
+    {
+        return view('clients.user.dangky');
+    }
+
+    public function postDangKy(Request $request)
+    {
+        $request->merge(['password' => Hash::make($request->password)]);
+        try {
+            User::create($request->all());
+        } catch (\Throwable $th) {
+            dd($th);
+        }
+        return redirect()->route('user.dangnhap')->with('success', 'Đăng ký tài khoản thành công!');
+    }
+
+
+
+
+    // Trang đăng nhập dành cho khách hàng
+    public function getDangNhap()
+    {
+        return view('clients.user.dangnhap');
+    }
+
     public function getGioHang()
     {
         if (Cart::count() > 0)

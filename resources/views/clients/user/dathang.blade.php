@@ -24,20 +24,19 @@
                             <div class="mb-3">
                                 <label class="form-label" for="HoVaTen">Khách hàng</label>
                                 <input class="form-control" type="text" id="HoVaTen"
-                                    value="{{ Auth::user()->name ?? '' }}" disabled />
+                                    value="{{ Auth::user()->hoten ?? '' }}" disabled />
                             </div>
                             <div class="mb-3">
-                                <label class="form-label" for="dienthoaigiaohang">Điện thoại giao hàng</label>
-                                <input class="form-control @error('dienthoaigiaohang') is-invalid @enderror" type="text"
-                                    id="dienthoaigiaohang" name="dienthoaigiaohang" required />
-                                @error('dienthoaigiaohang')
-                                    <div class="invalid-feedback"><strong>{{ $message }}</strong></div>
-                                @enderror
+                                <label class="form-label" for="sodienthoai">Điện thoại giao hàng</label>
+                                <input class="form-control @error('sodienthoai') is-invalid @enderror" type="text"
+                                    id="sodienthoai" name="sodienthoai" value="{{ Auth::user()->sodienthoai ?? '' }}" />
+
                             </div>
                             <div class="mb-3">
                                 <label class="form-label" for="diachigiaohang">Địa chỉ giao hàng</label>
                                 <input class="form-control @error('diachigiaohang') is-invalid @enderror" type="text"
-                                    id="diachigiaohang" name="diachigiaohang" required />
+                                    id="diachigiaohang" name="diachigiaohang"
+                                    value="{{ Auth::user()->diachi()->where('macdinh', 1)->first()->diachi ?? '' }}" />
                                 @error('diachigiaohang')
                                     <div class="invalid-feedback"><strong>{{ $message }}</strong></div>
                                 @enderror
