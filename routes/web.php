@@ -32,10 +32,11 @@ Route::controller(HomeController::class)->group(function () {
     Route::get('/gio-hang/giam/{row_id}', 'getGioHang_Giam')->name('giohang.giam');
     Route::get('/gio-hang/tang/{row_id}', 'getGioHang_Tang')->name('giohang.tang');
     Route::post('/gio-hang/cap-nhat', 'postGioHang_CapNhat')->name('giohang.capnhat');
+    Route::get('/search', 'searchProduct')->name('search');
 });
 
 
-Route::get('/search', SearchComponent::class)->name('product.search');
+// Route::get('/search', SearchComponent::class)->name('product.search');
 
 // Trang khách hàng
 Route::get('/khach-hang/dang-ky', [HomeController::class, 'getDangKy'])->name('user.dangky');

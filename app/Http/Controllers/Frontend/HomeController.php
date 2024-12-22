@@ -119,9 +119,6 @@ class HomeController extends Controller
         return redirect()->route('user.dangnhap')->with('success', 'Đăng ký tài khoản thành công!');
     }
 
-
-
-
     // Trang đăng nhập dành cho khách hàng
     public function getDangNhap()
     {
@@ -193,5 +190,18 @@ class HomeController extends Controller
                 Cart::update($row_id, $quantity);
         }
         return redirect()->route('giohang');
+    }
+
+    public function searchProduct(Request $request)
+    {
+        $search = $request->input('search');
+        $query = MatHang::query();
+        $dmsps = DanhMuc::all();
+        if (!empty($search)) {
+            $query->where('tenmathang', 'LIKE', "%$search%");
+        }
+        $sanphams = $query->paginate(10)->withQueryString();
+        $totalMH = $query->count();
+        return view('clients.home.shop', compact('sanphams', 'totalMH', 'dmsps'));
     }
 }

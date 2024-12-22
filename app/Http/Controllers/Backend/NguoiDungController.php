@@ -31,27 +31,6 @@ class NguoiDungController extends Controller
         $request->validate([
             'hinhanh.*' => 'image|mimes:jpeg,png,jpg,webp'
         ]);
-        // $validator = Validator::make(
-        //     $request->all(),
-        //     [
-        //         'hoten' => 'required|min:3|max:50'
-        //     ],
-        //     //messages
-        //     [
-        //         'hoten.required' => 'Mã danh mục bắt buộc nhập',
-        //         'hoten.min' => 'Mã danh mục phải từ 3 ký tự trở lên',
-        //         'hoten.max' => 'Mã danh mục ít hơn 50 ký tự',
-        //     ]
-        // );
-        // Nếu kiểm tra ràng buộc dữ liệu thất bại -> tức là dữ liệu không hợp lệ
-        // Chuyển hướng về view "Thêm mới" với,
-        // - Thông báo lỗi vi phạm các quy luật.
-        // - Dữ liệu cũ (người dùng đã nhập).
-        // if ($validator->fails()) {
-        //     return redirect(route('backend.nguoidung.create'))
-        //         ->withErrors($validator)
-        //         ->withInput();
-        // }
 
         $newUser = new User();
         $newUser->email = $request->email;

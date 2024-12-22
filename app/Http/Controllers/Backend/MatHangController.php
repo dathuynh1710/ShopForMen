@@ -27,19 +27,6 @@ class MatHangController extends Controller
         return view('backend.mathang.index', compact('totalMH', 'soMHNoiBat'))->with('dsMatHang', $dsMatHang);
     }
 
-
-    // public function search(Request $request)
-    // {
-    //     $search = $request->search;
-    //     $query = MatHang::query();
-    //     $totalMH = MatHang::count();
-    //     $soMHNoiBat = MatHang::where('noibat', 1)->count();
-    //     $query->whereAny(['tenmathang'], 'LIKE', "%$search%");
-    //     $dsMatHang = $query->get();
-
-    //     return view('backend.mathang.index', compact('dsMatHang', 'totalMH', 'soMHNoiBat'));
-    // }
-
     public function search(Request $request)
     {
         $search = $request->input('search');
@@ -113,53 +100,7 @@ class MatHangController extends Controller
             ->with('anhs', $anhs);
     }
 
-    // public function update($id, Request $request)
-    // {
-    //     $editMH = MatHang::find($id);
-    //     $editMH->tenmathang = $request->tenmathang;
-    //     $editMH->mota = $request->mota;
-    //     $editMH->giagoc = $request->giagoc;
-    //     $editMH->giaban = $request->giaban;
-    //     $editMH->soluongton = $request->soluongton;
-    //     $editMH->noibat = $request->noibat;
-    //     $editMH->danhmuc_id = $request->danhmuc_id;
-    //     $editMH->thuonghieu_id = $request->thuonghieu_id;
-    //     $editMH->created_at = date('Y-m-d H:i:s');
 
-
-    //     if ($request->hasFile('hinhanh')) {
-    //         if ($editMH->hinhanh) {
-    //             Storage::disk('public')->delete('uploads/mathang/img/' . $editMH->hinhanh);
-    //         }
-    //         $file = $request->file('hinhanh');
-    //         $newFileName = date('Ymd_His') . '_' . $file->getClientOriginalName();
-    //         $editMH->hinhanh = $newFileName;
-    //         $file->storeAs('uploads/danhmuc/img', $newFileName, 'public');
-    //     }
-    //     $editMH->save();
-
-    //     if ($request->hasFile('hinhanhs')) {
-    //         $anhs = HinhAnhSanPham::where('mathang_id', '=', $id)->get();
-    //         foreach ($anhs as $anh) {
-    //             $filePath = 'uploads/mathang/img/' . $anh->hinhanh;
-    //             // xóa file vật lý
-    //             if (Storage::disk('public')->exists($filePath)) {
-    //                 Storage::disk('public')->delete($filePath);
-    //             }
-    //             // xóa trong DB
-    //             $anh->delete();
-    //         }
-    //         foreach ($request->file('hinhanhs') as $key => $file) {
-    //             $fileNames = date('Ymd_His') . '_' . $file->getClientOriginalName();
-    //             $file->storeAs('uploads/mathang/img', $fileNames, 'public');
-    //             HinhAnhSanPham::create([
-    //                 'mathang_id' => $id,
-    //                 'hinhanh' => $fileNames
-    //             ]);
-    //         }
-    //     }
-    //     return redirect(route('backend.mathang.index'));
-    // }
     public function update($id, Request $request)
     {
         $editMH = MatHang::find($id);

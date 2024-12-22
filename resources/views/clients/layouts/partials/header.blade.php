@@ -44,7 +44,14 @@
                             alt="logo"></a>
                 </div>
                 <div class="header-right">
-                    @livewire('header-search-component')
+                    {{-- @livewire('header-search-component') --}}
+                    <div class="search-style-1">
+                        <form action="{{ route('search') }}">
+                            <input id="search" name="search" id="search-input" type="text"
+                                placeholder="Search for items..." value="{{ request('search') }}">
+                        </form>
+                    </div>
+
                     <div class="header-action-right">
                         <div class="header-action-2">
                             <div style="margin-right: 20px;">
