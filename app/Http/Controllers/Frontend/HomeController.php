@@ -151,7 +151,7 @@ class HomeController extends Controller
             ]
         ]);
 
-        return redirect()->route('shop');
+        return redirect()->route('giohang');
     }
 
     public function getGioHang_Xoa($row_id)

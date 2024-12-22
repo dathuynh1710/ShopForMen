@@ -80,7 +80,8 @@
                             <h5>Đổi mật khẩu</h5>
                         </div>
                         <div class="card-body">
-                            <form action="{{ route('user.doimatkhau') }}" method="post" name="enq">
+                            <form action="{{ route('user.doimatkhauPost') }}" method="post" name="enq">
+                                @csrf
                                 @if ($errors->any())
                                     <div class="alert alert-danger">
                                         <ul>
@@ -103,11 +104,11 @@
                                     </div>
                                     <div class="form-group col-md-12">
                                         <label>Xác nhận mật khẩu <span class="required">*</span></label>
-                                        <input required="" class="form-control square" name="cpassword" type="password">
+                                        <input required="" class="form-control square" name="new_password_confirmation"
+                                            type="password">
                                     </div>
                                     <div class="col-md-12">
-                                        <button type="submit" class="btn btn-fill-out submit btn-save" name="submit"
-                                            value="Submit">Lưu</button>
+                                        <button type="submit" class="btn btn-fill-out submit btn-save">Lưu</button>
                                     </div>
                                 </div>
                             </form>

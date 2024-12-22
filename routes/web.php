@@ -9,6 +9,7 @@ use App\Http\Controllers\Frontend\KhachHangController;
 
 use App\Http\Controllers\Frontend\CartController;
 use App\Http\Controllers\Frontend\HomeController;
+use App\Livewire\SearchComponent;
 use App\Models\DanhMuc;
 use App\Models\MatHang;
 use App\Models\ThuongHieu;
@@ -33,6 +34,9 @@ Route::controller(HomeController::class)->group(function () {
     Route::post('/gio-hang/cap-nhat', 'postGioHang_CapNhat')->name('giohang.capnhat');
 });
 
+
+Route::get('/search', SearchComponent::class)->name('product.search');
+
 // Trang khách hàng
 Route::get('/khach-hang/dang-ky', [HomeController::class, 'getDangKy'])->name('user.dangky');
 Route::post('/khach-hang/dang-ky', [HomeController::class, 'postDangKy'])->name('postdangky');
@@ -52,7 +56,7 @@ Route::prefix('khach-hang')->name('user.')->group(function () {
     Route::get('/ho-so-ca-nhan', [KhachHangController::class, 'getHoSoCaNhan'])->name('hosocanhan');
     Route::post('/ho-so-ca-nhan', [KhachHangController::class, 'postHoSoCaNhan'])->name('hosocanhan');
     Route::get('/ho-so-ca-nhan/doimatkhau', [KhachHangController::class, 'getDoiMatKhau'])->name('doimatkhau');
-    Route::post('/ho-so-ca-nhan/doimatkhau', [KhachHangController::class, 'postDoiMatKhau'])->name('doimatkhau');
+    Route::post('/ho-so-ca-nhan/doimatkhau', [KhachHangController::class, 'postDoiMatKhau'])->name('doimatkhauPost');
     Route::post('/dang-xuat', [KhachHangController::class, 'postDangXuat'])->name('dangxuat');
 });
 

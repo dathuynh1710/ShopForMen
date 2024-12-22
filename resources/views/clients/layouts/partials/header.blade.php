@@ -44,11 +44,7 @@
                             alt="logo"></a>
                 </div>
                 <div class="header-right">
-                    <div class="search-style-1">
-                        <form action="#">
-                            <input type="text" placeholder="Search for items...">
-                        </form>
-                    </div>
+                    @livewire('header-search-component')
                     <div class="header-action-right">
                         <div class="header-action-2">
                             <div style="margin-right: 20px;">
@@ -185,7 +181,7 @@
                                     src="{{ asset('fassets/imgs/theme/icons/icon-cart.svg') }}">
                                 <span class="pro-count white">{{ Cart::count() ?? 0 }}</span>
                             </a>
-                            <div class="cart-dropdown-wrap cart-dropdown-hm2">
+                            {{-- <div class="cart-dropdown-wrap cart-dropdown-hm2">
                                 <div id="change-item-cart">
                                     <ul>
                                         <li>
@@ -225,7 +221,7 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            </div> --}}
                         </div>
                         <div class="header-action-icon-2 d-block d-lg-none">
                             <div class="burger-icon burger-icon-white">
