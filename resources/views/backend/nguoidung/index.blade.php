@@ -44,8 +44,6 @@
                                             window.location.href = "{{ route('backend.nguoidung.create') }}";
                                         });
                                     </script>
-                                    <button type="button" class="btn btn-info"><i
-                                            class="ri-file-download-line align-bottom me-1"></i> Import</button>
                                 </div>
                             </div>
                         </div>
@@ -83,10 +81,13 @@
                                                                 <p class="text-muted mb-0">Loại :
                                                                     @if ($nd->loai == 0)
                                                                         <span>Admin</span>
-                                                                    @else
+                                                                    @elseif ($nd->loai == 1)
                                                                         <span>Staff</span>
+                                                                    @else
+                                                                        <span>User</span>
                                                                     @endif
                                                                 </p>
+
                                                             </div>
                                                         </div>
                                                     </span>
@@ -138,7 +139,7 @@
 
                             </div>
                             <div class="d-flex justify-content-end">
-                                <div class="pagination-wrap hstack gap-2">
+                                {{-- <div class="pagination-wrap hstack gap-2">
                                     <a class="page-item pagination-prev disabled" href="#">
                                         Previous
                                     </a>
@@ -146,7 +147,8 @@
                                     <a class="page-item pagination-next" href="#">
                                         Next
                                     </a>
-                                </div>
+                                </div> --}}
+                                {{ $dsNguoiDung->links() }}
                             </div>
                         </div>
                     </div>

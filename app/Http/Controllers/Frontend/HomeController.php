@@ -16,6 +16,7 @@ use Hash;
 
 class HomeController extends Controller
 {
+
     public function home()
     {
         $dmsps = DanhMuc::all();
@@ -39,11 +40,12 @@ class HomeController extends Controller
     }
     public function shop(Request $request)
     {
-        $dmsps = DanhMuc::all();
+        // $dmsps = DanhMuc::all();
         $thsps = ThuongHieu::all();
         $sanphams = MatHang::orderBy('created_at', 'DESC')->paginate(3);
         $totalMH = MatHang::count();
-        return view('clients.home.shop', compact('sanphams', 'totalMH', 'dmsps', 'thsps'));
+        // return view('clients.home.shop', compact('sanphams', 'totalMH', 'dmsps', 'thsps'));
+        return view('clients.home.shop', compact('sanphams', 'totalMH', 'thsps'));
     }
 
     public function sanphamtheodanhmuc($id)
@@ -82,25 +84,35 @@ class HomeController extends Controller
 
     public function chitietsanpham($id)
     {
+        $dmsps = DanhMuc::all();
         $sanpham = MatHang::where('id', '=', $id)->first();
-        // $sanphamlienquan = MatHang::where('danhmuc_id', $sanpham->danhmuc_id)->get();
+        if (!$sanpham) {
+            return redirect()->route('home')->with('error', 'Sản phẩm không tồn tại.');
+        }
         $sanphamlienquan = MatHang::where('danhmuc_id', $sanpham->danhmuc_id)
-            ->where('id', '!=', $id) // Loại trừ sản phẩm hiện tại
+            ->where('id', '!=', $id)
             ->orderBy('created_at', 'DESC')
-            ->take(4) // Giới hạn số lượng sản phẩm liên quan
+            ->take(4)
             ->get();
-        return view('clients.home.sanpham', ['sanpham' => $sanpham, 'sanphamlienquan' => $sanphamlienquan]);
+        return view('clients.home.sanpham', [
+            'sanpham' => $sanpham,
+            'sanphamlienquan' => $sanphamlienquan,
+            'dmsps' => $dmsps
+        ]);
     }
-
 
     public function about()
     {
+
         return view('clients.home.about');
     }
+
     public function contact()
     {
+
         return view('clients.home.contact');
     }
+
 
     // Trang đăng ký dành cho khách hàng
     public function getDangKy()

@@ -123,27 +123,18 @@
                 <div class="header-nav d-none d-lg-flex">
                     <div class="main-categori-wrap d-none d-lg-block">
                         <a class="categori-button-active" href="#">
-                            <span class="fi-rs-apps"></span> Categories
+                            <span class="fi-rs-apps"></span> Danh mục
                         </a>
                         <div class="categori-dropdown-wrap categori-dropdown-active-large">
                             <ul>
-                                <li><a href="shop.html"><i class="surfsidemedia-font-desktop"></i>Computer &
-                                        Office</a></li>
-                                <li><a href="shop.html"><i class="surfsidemedia-font-cpu"></i>Consumer
-                                        Electronics</a></li>
-                                <li><a href="shop.html"><i class="surfsidemedia-font-diamond"></i>Jewelry &
-                                        Accessories</a></li>
-                                <li><a href="shop.html"><i class="surfsidemedia-font-home"></i>Home & Garden</a>
-                                </li>
-                                <li><a href="shop.html"><i class="surfsidemedia-font-high-heels"></i>Shoes</a>
-                                </li>
-                                <li><a href="shop.html"><i class="surfsidemedia-font-teddy-bear"></i>Mother &
-                                        Kids</a></li>
-                                <li><a href="shop.html"><i class="surfsidemedia-font-kite"></i>Outdoor fun</a>
-                                </li>
-
+                                @foreach ($dmsps as $dmsp)
+                                    <li>
+                                        <a
+                                            href="{{ route('sanphamtheodanhmuc', $dmsp->id) }}">{{ $dmsp->tendanhmuc }}</a>
+                                    </li>
+                                @endforeach
                             </ul>
-                            <div class="more_categories">Show more...</div>
+
                         </div>
                     </div>
                     <div class="main-menu main-menu-padding-1 main-menu-lh-2 d-none d-lg-block">

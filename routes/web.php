@@ -4,7 +4,9 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Backend\DanhMucController;
 use App\Http\Controllers\Backend\MatHangController;
 use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\Backend\DonHangController;
 use App\Http\Controllers\Backend\NguoiDungController;
+use App\Http\Controllers\Backend\ThuongHieuController;
 use App\Http\Controllers\Frontend\KhachHangController;
 
 use App\Http\Controllers\Frontend\CartController;
@@ -33,15 +35,10 @@ Route::controller(HomeController::class)->group(function () {
     Route::get('/gio-hang/tang/{row_id}', 'getGioHang_Tang')->name('giohang.tang');
     Route::post('/gio-hang/cap-nhat', 'postGioHang_CapNhat')->name('giohang.capnhat');
     Route::get('/search', 'searchProduct')->name('search');
+    Route::get('/khach-hang/dang-ky', 'getDangKy')->name('user.dangky');
+    Route::post('/khach-hang/dang-ky', 'postDangKy')->name('postdangky');
+    Route::get('/khach-hang/dang-nhap', 'getDangNhap')->name('user.dangnhap');
 });
-
-
-// Route::get('/search', SearchComponent::class)->name('product.search');
-
-// Trang khách hàng
-Route::get('/khach-hang/dang-ky', [HomeController::class, 'getDangKy'])->name('user.dangky');
-Route::post('/khach-hang/dang-ky', [HomeController::class, 'postDangKy'])->name('postdangky');
-Route::get('/khach-hang/dang-nhap', [HomeController::class, 'getDangNhap'])->name('user.dangnhap');
 
 // Trang tài khoản khách hàng
 Route::prefix('khach-hang')->name('user.')->group(function () {
@@ -89,6 +86,21 @@ Route::middleware(['auth'])->group(function () {
         ->name('backend.danhmuc.update');
     Route::delete('/backend/danhmuc/{id}', [DanhMucController::class, 'destroy'])
         ->name('backend.danhmuc.destroy');
+    //* Thuong hieu
+    Route::get('/backend/thuonghieu', [ThuongHieuController::class, 'index'])
+        ->name('backend.thuonghieu.index');
+    Route::get('/backend/thuonghieu/search', [ThuongHieuController::class, 'search'])
+        ->name('backend.thuonghieu.search');
+    Route::get('/backend/thuonghieu/them', [ThuongHieuController::class, 'create'])
+        ->name('backend.thuonghieu.create');
+    Route::post('/backend/thuonghieu/store', [ThuongHieuController::class, 'store'])
+        ->name('backend.thuonghieu.store');
+    Route::get('/backend/thuonghieu/{id}', [ThuongHieuController::class, 'edit'])
+        ->name('backend.thuonghieu.edit');
+    Route::put('/backend/thuonghieu/{id}', [ThuongHieuController::class, 'update'])
+        ->name('backend.thuonghieu.update');
+    Route::delete('/backend/thuonghieu/{id}', [ThuongHieuController::class, 'destroy'])
+        ->name('backend.thuonghieu.destroy');
     // * Mat hang
     Route::get('/backend/mathang', [MatHangController::class, 'index'])
         ->name('backend.mathang.index');
@@ -127,4 +139,9 @@ Route::middleware(['auth'])->group(function () {
         ->name('backend.nguoidung.doimk');
     Route::post('/backend/nguoidung/hoso/capnhat-password', [NguoiDungController::class, 'xulydoimk'])->name('backend.nguoidung.capnhatpassword');
     Route::patch('/backend/{nd}/trangthai', [NguoiDungController::class, 'doiTrangThai'])->name('backend.nguoidung.doitrangthai');
+    //* Don hang
+    Route::get('/backend/donhang', [DonHangController::class, 'index'])
+        ->name('backend.donhang.index');
+    Route::get('backend/donhang/detail/{order}', [DonHangController::class, 'show'])->name('donhang.show');
+    // Route::get('backend/order/update-status/{order}', [DonHangController::class, 'update'])->name('donhang.update');
 });

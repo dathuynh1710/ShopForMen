@@ -125,7 +125,7 @@
                                                                     </div>
                                                                     <div class="flex-grow-1">
                                                                         <h5 class="fs-15 mb-1">
-                                                                            <a href="#!"
+                                                                            <a href="{{ route('backend.mathang.show', $mh->id) }}"
                                                                                 class="text-body">{{ $mh->tenmathang }}
                                                                             </a>
                                                                         </h5>
@@ -138,11 +138,11 @@
                                                         </td>
                                                         <td data-column-id="stock" class="gridjs-td">
                                                             {{ $mh->soluongton }}</td>
-                                                        <td data-column-id="price" class="gridjs-td">
-                                                            <span>{{ $mh->giagoc }}</span>
+                                                        <td data-column-id="stock" class="gridjs-td">
+                                                            {{ number_format($mh->giagoc, 0, ',', '.') }}
                                                         </td>
                                                         <td data-column-id="orders" class="gridjs-td">
-                                                            {{ $mh->giaban }}</td>
+                                                            {{ number_format($mh->giaban, 0, ',', '.') }}</td>
                                                         <td data-column-id="rating" class="gridjs-td">
                                                             @if ($mh->noibat == 1)
                                                                 <span class="badge text-bg-primary">Có</span>
@@ -256,7 +256,7 @@
                                                                         </div>
                                                                         <div class="flex-grow-1">
                                                                             <h5 class="fs-15 mb-1">
-                                                                                <a href="#!"
+                                                                                <a href="{{ route('backend.mathang.show', $mh->id) }}"
                                                                                     class="text-body">{{ $mh->tenmathang }}</a>
                                                                             </h5>
                                                                             <p class="text-muted mb-0">Danh mục :

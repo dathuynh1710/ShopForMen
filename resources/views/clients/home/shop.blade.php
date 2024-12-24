@@ -45,7 +45,8 @@
                                                 <a aria-label="Compare" class="action-btn hover-up" href="compare.php"><i
                                                         class="fi-rs-shuffle"></i></a>
                                             </div> --}}
-                                            <div class="product-badges product-badges-position product-badges-mrg">
+                                            <div class="product-badges product-badges-position product-badges-mrg"
+                                                style="z-index: 2;">
                                                 <span class="hot">Hot</span>
                                             </div>
                                         </div>

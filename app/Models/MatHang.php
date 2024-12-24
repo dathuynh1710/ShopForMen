@@ -52,7 +52,7 @@ class MatHang extends Model
         );
     }
 
-    public function hinhanhs()
+    public function hinhanh()
     {
         return $this->hasMany(
             HinhAnhSanPham::class,

@@ -129,48 +129,45 @@
                         <div class="col-12">
                             <div class="row related-products">
                                 @foreach ($sanphamlienquan as $splq)
-                                    <div class="col-lg-3 col-md-4 col-12 col-sm-6">
-                                        <div class="product-cart-wrap small hover-up">
-                                            <div class="product-img-action-wrap">
-                                                <div class="product-img product-img-zoom">
-                                                    <a href="product-details.html" tabindex="0">
-                                                        <img class="default-img"
-                                                            src="/storage/uploads/mathang/img/{{ $splq->hinhanh }}"
-                                                            alt=""
-                                                            style="width: 100%; height: 200px; object-fit: cover; ">
-                                                    </a>
+                                    @if (!is_null($splq) && !is_null($splq->danhmuc_id))
+                                        <div class="col-lg-3 col-md-4 col-12 col-sm-6">
+                                            <div class="product-cart-wrap small hover-up">
+                                                <div class="product-img-action-wrap">
+                                                    <div class="product-img product-img-zoom">
+                                                        <a href="product-details.html" tabindex="0">
+                                                            <img class="default-img"
+                                                                src="/storage/uploads/mathang/img/{{ $splq->hinhanh }}"
+                                                                alt=""
+                                                                style="width: 100%; height: 200px; object-fit: cover; ">
+                                                        </a>
+                                                    </div>
+
+                                                    <div class="product-badges product-badges-position product-badges-mrg">
+                                                        <span class="hot">Hot</span>
+                                                    </div>
                                                 </div>
-                                                <div class="product-action-1">
-                                                    <a aria-label="Quick view" class="action-btn small hover-up"
-                                                        data-bs-toggle="modal" data-bs-target="#quickViewModal"><i
-                                                            class="fi-rs-search"></i></a>
-                                                    <a aria-label="Add To Wishlist" class="action-btn small hover-up"
-                                                        href="wishlist.php" tabindex="0"><i
-                                                            class="fi-rs-heart"></i></a>
-                                                    <a aria-label="Compare" class="action-btn small hover-up"
-                                                        href="compare.php" tabindex="0"><i
-                                                            class="fi-rs-shuffle"></i></a>
-                                                </div>
-                                                <div class="product-badges product-badges-position product-badges-mrg">
-                                                    <span class="hot">Hot</span>
-                                                </div>
-                                            </div>
-                                            <div class="product-content-wrap">
-                                                <h2><a href="product-details.html"
-                                                        tabindex="0">{{ $splq->tenmathang }}</a></h2>
-                                                <div class="rating-result" title="90%">
-                                                    <span>
-                                                    </span>
-                                                </div>
-                                                <div class="product-price">
-                                                    <span>{{ number_format($splq->giaban, 0, ',', '.') }} ₫</span>
-                                                    <span
-                                                        class="old-price">{{ number_format($splq->giagoc, 0, ',', '.') }}
-                                                        ₫</span>
+                                                <div class="product-content-wrap">
+                                                    <h2>
+                                                        <a href="{{ isset($splq->danhmuc_id) ? url('san-pham/' . $splq->danhmuc_id) : '#' }}"
+                                                            tabindex="0">
+                                                            {{ $splq->tenmathang ?? 'Sản phẩm không có tên' }}
+                                                        </a>
+                                                    </h2>
+
+                                                    <div class="rating-result" title="90%">
+                                                        <span>
+                                                        </span>
+                                                    </div>
+                                                    <div class="product-price">
+                                                        <span>{{ number_format($splq->giaban, 0, ',', '.') }} ₫</span>
+                                                        <span
+                                                            class="old-price">{{ number_format($splq->giagoc, 0, ',', '.') }}
+                                                            ₫</span>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
+                                    @endif
                                 @endforeach
 
                             </div>

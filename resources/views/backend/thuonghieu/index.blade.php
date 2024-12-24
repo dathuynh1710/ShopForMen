@@ -1,7 +1,7 @@
 @extends('backend.layouts.master')
 
 @section('title')
-    Danh sách danh mục
+    Danh sách thương hiệu
 @endsection
 
 @section('main-content')
@@ -11,11 +11,11 @@
         <div class="row">
             <div class="col-12">
                 <div class="page-title-box d-sm-flex align-items-center justify-content-between bg-galaxy-transparent">
-                    <h4 class="mb-sm-0">Quản lý danh mục</h4>
+                    <h4 class="mb-sm-0">Quản lý thương hiệu</h4>
                     <div class="page-title-right">
                         <ol class="breadcrumb m-0">
                             <li class="breadcrumb-item"><a href="javascript: void(0);">Dashboard</a></li>
-                            <li class="breadcrumb-item active">Quản lý danh mục</li>
+                            <li class="breadcrumb-item active">Quản lý thương hiệu</li>
                         </ol>
                     </div>
                 </div>
@@ -28,24 +28,24 @@
                     <div class="card-header border-0">
                         <div class="row align-items-center gy-3">
                             <div class="col-sm">
-                                <h5 class="card-title mb-0">Danh sách danh mục</h5>
+                                <h5 class="card-title mb-0">Danh sách thương hiệu</h5>
                             </div>
                             <div class="col-sm-auto">
                                 <div class="d-flex gap-1 flex-wrap">
-                                    <a class="btn btn-success add-btn" href="{{ route('backend.danhmuc.create') }}"><i
-                                            class="ri-add-line align-bottom me-1"></i>Thêm danh mục
+                                    <a class="btn btn-success add-btn" href="{{ route('backend.thuonghieu.create') }}"><i
+                                            class="ri-add-line align-bottom me-1"></i>Thêm thương hiệu
                                     </a>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="card-body border border-dashed border-end-0 border-start-0">
-                        <form method="GET" action="{{ route('backend.danhmuc.search') }}">
+                        <form method="GET" action="{{ route('backend.thuonghieu.search') }}">
                             <div class="row g-3">
                                 <div class="col-xxl-5 col-sm-6">
                                     <div class="search-box">
                                         <input type="text" class="form-control search" name="search"
-                                            placeholder="Nhập mã danh mục, tên danh mục...">
+                                            placeholder="Nhập mã thương hiệu, tên thương hiệu...">
                                         <i class="ri-search-line search-icon"></i>
                                     </div>
                                 </div>
@@ -62,25 +62,25 @@
                                 <table class="table table-nowrap align-middle" id="orderTable">
                                     <thead class="text-muted table-light">
                                         <tr class="text-uppercase">
-                                            <th>Mã danh mục</th>
-                                            <th>Tên danh mục</th>
+                                            <th>Mã thương hiệu</th>
+                                            <th>Tên thương hiệu</th>
                                             <th>Mô tả</th>
                                             <th>Hình ảnh</th>
                                             <th>Action</th>
                                         </tr>
                                     </thead>
                                     <tbody class="list form-check-all">
-                                        @foreach ($dsDanhMuc as $dm)
+                                        @foreach ($dsThuongHieu as $th)
                                             <tr>
-                                                <td class="id">{{ $dm->madanhmuc }}</td>
-                                                <td class="customer_name">{{ $dm->tendanhmuc }}</td>
+                                                <td class="id">{{ $th->math }}</td>
+                                                <td class="customer_name">{{ $th->tenth }}</td>
                                                 <td class="product_name"
                                                     style="max-width: 150px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
-                                                    {{ $dm->mota }}
+                                                    {{ $th->mota }}
                                                 </td>
                                                 <td>
                                                     <div>
-                                                        <img src="/storage/uploads/danhmuc/img/{{ $dm->hinhanh }}"
+                                                        <img src="/storage/uploads/thuonghieu/img/{{ $th->hinhanh }}"
                                                             class="img-fluid"
                                                             style="max-width: 50px; max-height: 50px; object-fit: cover;"
                                                             alt="">
@@ -92,7 +92,7 @@
 
                                                         <li class="list-inline-item edit" data-bs-toggle="tooltip"
                                                             data-bs-trigger="hover" data-bs-placement="top" title="Edit">
-                                                            <a href="{{ route('backend.danhmuc.edit', ['id' => $dm->id]) }}"
+                                                            <a href="{{ route('backend.thuonghieu.edit', ['id' => $th->id]) }}"
                                                                 class="text-primary d-inline-block edit-item-btn">
                                                                 <i class="ri-pencil-fill fs-20"></i>
                                                             </a>
@@ -101,8 +101,8 @@
                                                             data-bs-trigger="hover" data-bs-placement="top" title="Remove">
                                                             <a style="cursor: pointer;"
                                                                 class=" text-danger d-inline-block remove-item-btn btn-delete"
-                                                                data-id="{{ $dm->id }}"
-                                                                data-delete-url="{{ route('backend.danhmuc.destroy', ['id' => $dm->id]) }}">
+                                                                data-id="{{ $th->id }}"
+                                                                data-delete-url="{{ route('backend.thuonghieu.destroy', ['id' => $th->id]) }}">
                                                                 <i class="ri-delete-bin-5-fill fs-20"></i>
                                                             </a>
 
@@ -115,18 +115,9 @@
                                 </table>
 
                             </div>
-                            <div class="d-flex justify-content-end">
-                                {{-- <div class="pagination-wrap hstack gap-2">
-                                    <a class="page-item pagination-prev disabled" href="#">
-                                        Previous
-                                    </a>
-                                    <ul class="pagination listjs-pagination mb-0"></ul>
-                                    <a class="page-item pagination-next" href="#">
-                                        Next
-                                    </a>
-                                </div> --}}
-                                {{ $dsDanhMuc->links() }}
-                            </div>
+                            {{-- <div class="d-flex justify-content-end">
+                                {{ $dsThuongHieu->links() }}
+                            </div> --}}
 
 
                         </div>

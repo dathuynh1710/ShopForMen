@@ -101,7 +101,8 @@
                                                     </div>
                                                     <div class="flex-grow-1">
                                                         <p class="text-muted mb-1">Giá bán :</p>
-                                                        <h5 class="mb-0">{{ $product->giaban }}</h5>
+                                                        <h5 class="mb-0">
+                                                            {{ number_format($product->giaban, 0, ',', '.') }}</h5>
                                                     </div>
                                                 </div>
                                             </div>
@@ -117,7 +118,8 @@
                                                     </div>
                                                     <div class="flex-grow-1">
                                                         <p class="text-muted mb-1">Giá gốc :</p>
-                                                        <h5 class="mb-0">{{ $product->giagoc }}</h5>
+                                                        <h5 class="mb-0">
+                                                            {{ number_format($product->giagoc, 0, ',', '.') }}</h5>
                                                     </div>
                                                 </div>
                                             </div>

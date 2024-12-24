@@ -7,6 +7,9 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use App\Models\MatHang;
+use App\Models\User;
+use App\Models\DonHang;
 
 class LoginController extends Controller
 {
@@ -18,7 +21,8 @@ class LoginController extends Controller
 
     public function dashboard()
     {
-        return view('backend.dashboard.index');
+        $totalMH = MatHang::count();
+        return view('backend.dashboard.index', compact('totalMH'));
     }
 
     public function authenticate(Request $request)

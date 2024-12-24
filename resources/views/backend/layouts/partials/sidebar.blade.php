@@ -2,21 +2,21 @@
     <!-- LOGO -->
     <div class="navbar-brand-box">
         <!-- Dark Logo-->
-        <a href="index.html" class="logo logo-dark">
+        <a href="{{ route('auth.login.dashboard') }}"class="logo logo-dark">
             <span class="logo-sm">
-                <img src="{{ asset('assets/images/logo-sm.png') }}" alt="" height="22">
+                <img src="{{ asset('assets/images/logo1.png') }}" alt="" height="22">
             </span>
             <span class="logo-lg">
-                <img src="{{ asset('assets/images/logo-dark.png') }}" alt="" height="17">
+                <img src="{{ asset('assets/images/logo1.png') }}" alt="" height="17">
             </span>
         </a>
         <!-- Light Logo-->
-        <a href="index.html" class="logo logo-light">
+        <a href="{{ route('auth.login.dashboard') }}" class="logo logo-light">
             <span class="logo-sm">
-                <img src="{{ asset('assets/images/logo-sm.png') }}" alt="" height="22">
+                <img src="{{ asset('assets/images/logo1.png') }}" alt="" height="22">
             </span>
             <span class="logo-lg">
-                <img src="{{ asset('assets/images/logo-light.png') }}" alt="" height="17">
+                <img src="{{ asset('assets/images/logo1.png') }}" alt="" height="17">
             </span>
         </a>
         <button type="button" class="btn btn-sm p-0 fs-20 header-item float-end btn-vertical-sm-hover"
@@ -77,29 +77,16 @@
             <ul class="navbar-nav" id="navbar-nav">
                 <li class="menu-title"><span data-key="t-menu">Menu</span></li>
                 <li class="nav-item">
-                    <a class="nav-link menu-link" href="#sidebarDashboards" data-bs-toggle="collapse" role="button"
-                        aria-expanded="false" aria-controls="sidebarDashboards">
+                    <a class="nav-link menu-link" href="{{ route('auth.login.dashboard') }}">
                         <i class="ri-dashboard-2-line"></i> <span data-key="t-dashboards">Dashboards</span>
                     </a>
                 </li> <!-- end Dashboard Menu -->
-                <li class="nav-item">
-                    <a class="nav-link menu-link" href="#sidebarApps" data-bs-toggle="collapse" role="button"
-                        aria-expanded="false" aria-controls="sidebarApps">
-                        <i class="ri-apps-2-line"></i> <span data-key="t-apps">Apps</span>
-                    </a>
 
-                </li>
 
                 <!-- end Dashboard Menu -->
 
                 <li class="menu-title"><i class="ri-more-fill"></i> <span data-key="t-pages">Pages</span></li>
 
-                {{-- <li class="nav-item">
-
-                    <a class="nav-link menu-link" href="{{ route('backend.nguoidung.index') }}"> <i
-                            class="ri-account-circle-line"></i> Quản lý người dùng
-                    </a>
-                </li> --}}
                 @if (auth()->user() && auth()->user()->loai == 0)
                     <li class="nav-item">
                         <a class="nav-link menu-link" href="{{ route('backend.nguoidung.index') }}">
@@ -121,22 +108,41 @@
                     </a>
                 </li>
 
-                <li class="menu-title"><i class="ri-more-fill"></i> <span data-key="t-components">Components</span>
+                <li class="nav-item">
+                    <a class="nav-link menu-link" href="{{ route('backend.thuonghieu.index') }}"> <i
+                            class="ri-openbase-fill"></i> Quản lý
+                        thương hiệu
+                    </a>
                 </li>
 
-                <li class="nav-item">
-                    <a class="nav-link menu-link" href="#sidebarUI" data-bs-toggle="collapse" role="button"
-                        aria-expanded="false" aria-controls="sidebarUI">
-                        <i class="ri-pencil-ruler-2-line"></i> <span data-key="t-base-ui">Base UI</span>
+                {{-- <li class="nav-item">
+                    <a class="nav-link menu-link" href="{{ route('backend.donhang.index') }}"> <i
+                            class="ri-pencil-ruler-2-line"></i> Quản lý
+                        đơn hàng
                     </a>
-
-                </li>
+                </li> --}}
 
                 <li class="nav-item">
-                    <a class="nav-link menu-link" href="#sidebarAdvanceUI" data-bs-toggle="collapse" role="button"
-                        aria-expanded="false" aria-controls="sidebarAdvanceUI">
-                        <i class="ri-stack-line"></i> <span data-key="t-advance-ui">Advance UI</span>
+                    <a class="nav-link menu-link" href="#sidebarTables" data-bs-toggle="collapse" role="button"
+                        aria-expanded="false" aria-controls="sidebarTables">
+                        <i class="ri-pencil-ruler-2-line"></i> <span data-key="t-tables">Quản lý
+                            đơn hàng</span>
                     </a>
+                    <div class="collapse menu-dropdown" id="sidebarTables">
+                        <ul class="nav nav-sm flex-column">
+                            <li class="nav-item">
+                                <a href="{{ route('backend.donhang.index') }}?trangthai=1" class="nav-link"
+                                    data-key="t-basic-tables">Chưa xác
+                                    nhận</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ route('backend.donhang.index') }}?trangthai=3" class="nav-link"
+                                    data-key="t-grid-js">Đã xác nhận</a>
+                            </li>
+
+
+                        </ul>
+                    </div>
                 </li>
             </ul>
         </div>

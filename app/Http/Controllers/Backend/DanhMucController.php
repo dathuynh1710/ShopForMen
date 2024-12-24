@@ -20,7 +20,8 @@ class DanhMucController extends Controller
 
     public function index()
     {
-        $dsDanhMuc = DanhMuc::all();
+        // $dsDanhMuc = DanhMuc::all();
+        $dsDanhMuc = DanhMuc::paginate(5);
         return view('backend.danhmuc.index')->with('dsDanhMuc', $dsDanhMuc);
     }
 
@@ -126,8 +127,6 @@ class DanhMucController extends Controller
         $danhmuc = DanhMuc::findOrFail($id);
         File::delete(public_path('uploads/danhmuc/img' . $danhmuc->hinhanh));
         $danhmuc->delete();
-        DanhMuc::destroy($id);
-
         return redirect(route('backend.danhmuc.index'));
     }
 }

@@ -17,7 +17,7 @@ class NguoiDungController extends Controller
 {
     public function index()
     {
-        $dsNguoiDung = User::all();
+        $dsNguoiDung = User::paginate(5);
         return view('backend.nguoidung.index')->with('dsNguoiDung', $dsNguoiDung);
     }
 
