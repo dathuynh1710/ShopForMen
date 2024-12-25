@@ -12,6 +12,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Gloudemans\Shoppingcart\Facades\Cart;
 use Socialite;
+use App\Models\HinhAnhSanPham;
 use Hash;
 
 class HomeController extends Controller
@@ -42,7 +43,7 @@ class HomeController extends Controller
     {
         // $dmsps = DanhMuc::all();
         $thsps = ThuongHieu::all();
-        $sanphams = MatHang::orderBy('created_at', 'DESC')->paginate(3);
+        $sanphams = MatHang::orderBy('created_at', 'DESC')->paginate(9);
         $totalMH = MatHang::count();
         // return view('clients.home.shop', compact('sanphams', 'totalMH', 'dmsps', 'thsps'));
         return view('clients.home.shop', compact('sanphams', 'totalMH', 'thsps'));
@@ -85,7 +86,7 @@ class HomeController extends Controller
     public function chitietsanpham($id)
     {
         $dmsps = DanhMuc::all();
-        $sanpham = MatHang::where('id', '=', $id)->first();
+        $sanpham = MatHang::where('id', $id)->first();
         if (!$sanpham) {
             return redirect()->route('home')->with('error', 'Sản phẩm không tồn tại.');
         }
@@ -94,10 +95,12 @@ class HomeController extends Controller
             ->orderBy('created_at', 'DESC')
             ->take(4)
             ->get();
+        $images = HinhAnhSanPham::where('mathang_id', $id)->get();
         return view('clients.home.sanpham', [
             'sanpham' => $sanpham,
             'sanphamlienquan' => $sanphamlienquan,
-            'dmsps' => $dmsps
+            'dmsps' => $dmsps,
+            'images' => $images,
         ]);
     }
 

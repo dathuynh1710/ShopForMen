@@ -26,7 +26,7 @@
                                                 <img src="/storage/uploads/mathang/img/{{ $sanpham->hinhanh }}"
                                                     alt="product image">
                                             </figure>
-                                            @foreach ($sanpham->hinhanhs as $item)
+                                            @foreach ($images as $item)
                                                 <figure class="border-radius-10">
                                                     <img id="image"
                                                         src="/storage/uploads/mathang/img/{{ $item->hinhanh }}"
@@ -38,9 +38,16 @@
                                         <div class="slider-nav-thumbnails pl-15 pr-15">
                                             <div><img src="/storage/uploads/mathang/img/{{ $sanpham->hinhanh }}"
                                                     alt="product image"></div>
-                                            @foreach ($sanpham->hinhanhs as $item)
-                                                <div><img src="/storage/uploads/mathang/img/{{ $item->hinhanh }}"
-                                                        alt="product image"></div>
+                                            @foreach ($images as $item)
+                                                @if (is_array($item->hinhanh))
+                                                    @foreach ($item->hinhanh as $img)
+                                                        <div><img src="/storage/uploads/mathang/img/{{ $img }}"
+                                                                alt="product image"></div>
+                                                    @endforeach
+                                                @else
+                                                    <div><img src="/storage/uploads/mathang/img/{{ $item->hinhanh }}"
+                                                            alt="product image"></div>
+                                                @endif
                                             @endforeach
                                         </div>
                                     </div>

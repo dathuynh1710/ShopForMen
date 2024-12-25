@@ -109,17 +109,18 @@
                                                 </ul>
                                             </td>
                                             <td>{{ number_format($donhang->tongtien, 0, ',', '.') }} VND</td>
-                                            <td>
-                                                @if ($donhang->trangthai == 0)
+                                            {{-- <td>
+                                                @if ($donhang->trangthai == 1)
                                                     <span class="badge bg-danger">Chờ xác nhận</span>
-                                                @elseif ($donhang->trangthai == 1)
-                                                    <span class="badge bg-warning">Đang giao</span>
-                                                @elseif ($donhang->trangthai == 2)
-                                                    <span class="badge bg-success">
-                                                        Đã giao
-                                                    </span>
                                                 @elseif ($donhang->trangthai == 3)
-                                                    <span class="badge bg-danger">Đã hủy</span>
+                                                    <span class="badge bg-danger">Đã xác nhận</span>
+                                                @endif
+                                            </td> --}}
+                                            <td>
+                                                @if ($donhang->TrangThai && $donhang->TrangThai->id == 1)
+                                                    <span class="badge bg-danger">Chờ xác nhận</span>
+                                                @elseif ($donhang->TrangThai && $donhang->TrangThai->id == 3)
+                                                    <span class="badge bg-danger">Đã xác nhận</span>
                                                 @endif
                                             </td>
                                             {{-- <td>

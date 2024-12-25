@@ -55,6 +55,7 @@ class NguoiDungController extends Controller
 
     public function edit($id)
     {
+        dd($id);
         //Tìm dữ liệu
         $nguoiDung = User::find($id);
         return view('backend.nguoidung.edit')

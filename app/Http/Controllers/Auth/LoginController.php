@@ -22,7 +22,10 @@ class LoginController extends Controller
     public function dashboard()
     {
         $totalMH = MatHang::count();
-        return view('backend.dashboard.index', compact('totalMH'));
+        $totalDH = DonHang::count();
+        $totalUser = User::where('loai', 3)->count();
+        $totalRevenue = DonHang::sum('tongtien');
+        return view('backend.dashboard.index', compact('totalMH', 'totalDH', 'totalUser', 'totalRevenue'));
     }
 
     public function authenticate(Request $request)
